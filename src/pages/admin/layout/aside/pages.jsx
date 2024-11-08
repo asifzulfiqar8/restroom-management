@@ -10,29 +10,29 @@ export const pages = [
     title: "Dashboard",
     icon: <BuildingIcon />,
 
-    link: "/admin",
-  },
-
-  {
-    title: "Setting",
-    link: "/admin/setting",
-    icon: <SettingIcon />,
+    link: "/admin/dashboard",
   },
 
   // {
-  //   title: "Settings",
+  //   title: "Setting",
+  //   link: "/admin/setting",
   //   icon: <SettingIcon />,
-  //   subPages: [
-  //     {
-  //       title: "Profile",
-  //       link: "/home/setting",
-  //     },
-  //     {
-  //       title: "Configuration",
-  //       link: "/home/configuration",
-  //     },
-  //   ],
   // },
+
+  {
+    title: "Settings",
+    icon: <SettingIcon />,
+    subPages: [
+      {
+        title: "Profile",
+        link: "/admin/profile",
+      },
+      {
+        title: "Change Password",
+        link: "/admin/change-password",
+      },
+    ],
+  },
 ];
 
 //  const pages = [

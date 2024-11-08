@@ -32,6 +32,8 @@ import Configuration from "./pages/settings/Configuration.jsx";
 import ReportsList from "./pages/downloadReport/ReportsList.jsx";
 import Reports from "./pages/downloadReport/Reports.jsx";
 import Admin from "./pages/admin/layout/index.jsx";
+import AdminProfile from "./pages/admin/settings/components/Profile.jsx";
+import AdminChangePassword from "./pages/admin/settings/components/ChangePassword.jsx";
 
 const App = () => {
   return (
@@ -68,7 +70,12 @@ const App = () => {
         <Route path="all-inspections" element={<Inspections />} />
         <Route path="all-restrooms" element={<AllRestRooms />} />
       </Route>
-      <Route path="/admin" element={<Admin />}></Route>
+      <Route path="/admin" element={<Admin />}>
+        <Route index element={<Navigate replace to="dashboard" />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="profile" element={<AdminProfile />} />
+        <Route path="change-password" element={<AdminChangePassword />} />
+      </Route>
 
       {/* Redirect all other routes to /home */}
       <Route path="*" element={<Navigate to="/home" />} />
