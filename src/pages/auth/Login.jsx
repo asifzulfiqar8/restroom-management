@@ -10,8 +10,6 @@ const Login = () => {
 
   const togglePasswordVisibility = () => { setShowPassword(!showPassword) };
 
-
-
   return (
     <>
       <section
