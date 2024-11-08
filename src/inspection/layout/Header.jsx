@@ -20,7 +20,7 @@
 //   return (
 //     <section
 //       id="header_banner"
-//       className="px-[25px] pt-[25px]  relative h-[15vh]"
+//       className="px-[25px] pt-[25px]  relative h-[13vh]" bg-[#F5F2FF]"
 //     >
 //       <div className="flex justify-end  items-center gap-4">
 //         <button className="bg-black h-[40px] w-[40px] flex justify-center items-center rounded-lg relative">

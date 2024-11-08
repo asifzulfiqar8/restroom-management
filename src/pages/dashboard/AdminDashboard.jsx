@@ -16,7 +16,7 @@ import ActivityChart from "../../components/charts/activityChart/ActivityChart";
 import SimpleLineChart from "../../components/charts/simpleLineChart/SimpleLineChart";
 import LineChart from "../../components/charts/areaChart/LineChart";
 import InfoCards from "./components/InfoCards";
-import Card from "../../components/card/Card";
+import BuildingCard from "../../components/card/BuildingCard";
 
 const buildingDatas = [
   { name: "Building A" },
@@ -139,7 +139,7 @@ const AdminDashboard = () => {
               <h2 className="text-2xl mb-4 font-semibold">All Buildings</h2>
               <div className="grid xs:grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 gap-4">
                 {buildingDatas.map((data, i) => (
-                  <Card name={data.name} />
+                  <BuildingCard name={data.name} />
                 ))}
               </div>
             </div>

@@ -31,6 +31,7 @@ import Inspections from "./inspection/pages/inspection/Inspections.jsx";
 import Configuration from "./pages/settings/Configuration.jsx";
 import ReportsList from "./pages/downloadReport/ReportsList.jsx";
 import Reports from "./pages/downloadReport/Reports.jsx";
+import Admin from "./pages/admin/layout/index.jsx";
 
 const App = () => {
   return (
@@ -43,13 +44,13 @@ const App = () => {
       <Route path="/home" element={<Home />}>
         <Route index element={<Navigate replace to="dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="buildings/:id" element={<BuildingFloors />} />
+        <Route path="building-floor" element={<BuildingFloors />} />
         <Route path="update-building/:id" element={<EditBuilding />} />
         <Route path="floor/:buildingId/:floorId" element={<Floor />} />
         <Route path="building" element={<Buildings />} />
         <Route path="add-building" element={<AddBuildingStepper />} />
         <Route path="sensor" element={<Sensors />} />
-        <Route path="view-sensor/:id" element={<ViewSensor />} />
+        <Route path="view-sensor" element={<ViewSensor />} />
         <Route path="setting" element={<Settings />} />
         <Route path="reporting" element={<UserReporting />} />
         <Route path="plan" element={<Plans />} />
@@ -58,7 +59,7 @@ const App = () => {
         <Route path="admin-dashboard" element={<AdminDashboard />} />
         <Route path="all-floors" element={<AllFloorList />} />
         <Route path="configuration" element={<Configuration />} />
-        <Route path="export" element={<Reports />} />
+        <Route path="reports" element={<Reports />} />
       </Route>
 
       <Route path="/inspection" element={<InspectionHome />}>
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="all-inspections" element={<Inspections />} />
         <Route path="all-restrooms" element={<AllRestRooms />} />
       </Route>
+      <Route path="/admin" element={<Admin />}></Route>
 
       {/* Redirect all other routes to /home */}
       <Route path="*" element={<Navigate to="/home" />} />

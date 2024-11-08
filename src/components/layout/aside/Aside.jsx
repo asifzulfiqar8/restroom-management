@@ -39,12 +39,12 @@ const Aside = () => {
       className={`${
         aside
           ? "relative"
-          : "mr-4 fixed 2xl:relative rounded-lg bg-gradient-to-b from-[#039099] to-[#C51FFF] 2xl:w-auto h-screen 2xl:h-auto z-[999] p-1 2xl:p-0"
+          : "fixed 2xl:relative rounded-lg bg-gradient-to-b from-secondary to-primary 2xl:w-auto h-screen 2xl:h-auto z-[999] 2xl:p-0"
       }`}
       onClick={asideToggleHandler}
     >
       <aside
-        className={`bg-primary rounded-xl transition-all duration-300 h-full ${
+        className={`bg-gradient-to-b from-secondary to-primary rounded-xl transition-all duration-300 h-full ${
           aside
             ? "w-0 invisible opacity-0"
             : "w-[230px] visible opacity-100 p-4"

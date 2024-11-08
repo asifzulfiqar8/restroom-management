@@ -1,6 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { addSensor } from "../../service/sensorService";
+import Input from "../../components/shared/input/Input";
+import Button from "../../components/shared/button/Button";
 
 const AddSensor = ({ onClose, onAdd }) => {
   const [addsensorData, setAddSensorData] = useState({
@@ -47,11 +50,9 @@ const AddSensor = ({ onClose, onAdd }) => {
       <div className="flex flex-col gap-4 mt-2">
         <div className="flex gap-2">
           <div className="flex flex-col w-[100%]">
-            <Label label="Sensor Name" />
-            <input
-              labelWeight="font-semibold"
+            <Input
+              label="Sensor Name"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="Sensor Name"
               name="sensorName"
               onChange={handleSensorChange}
@@ -60,11 +61,9 @@ const AddSensor = ({ onClose, onAdd }) => {
             />
           </div>
           <div className="flex flex-col w-[100%] ">
-            <Label label="Type" />
-            <input
-              labelWeight="font-semibold"
+            <Input
+              label="Type"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="Type"
               name="type"
               onChange={handleSensorChange}
@@ -75,11 +74,9 @@ const AddSensor = ({ onClose, onAdd }) => {
         </div>
         <div className="flex gap-2">
           <div className="flex flex-col w-[100%] ">
-            <Label label="IP" />
-            <input
-              labelWeight="font-semibold"
+            <Input
+              label="IP"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="IP"
               name="ip"
               onChange={handleSensorChange}
@@ -88,11 +85,9 @@ const AddSensor = ({ onClose, onAdd }) => {
             />
           </div>
           <div className="flex flex-col w-[100%] ">
-            <Label label="Port" />
-            <input
-              labelWeight="font-semibold"
+            <Input
+              label="Port"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="Port"
               name="port"
               onChange={handleSensorChange}
@@ -103,11 +98,10 @@ const AddSensor = ({ onClose, onAdd }) => {
         </div>
         <div className="flex gap-2">
           <div className="flex flex-col w-[100%] ">
-            <Label label="Url" />
-            <input
+            <Input
+              label="URL"
               labelWeight="font-semibold"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="url"
               name="url"
               onChange={handleSensorChange}
@@ -116,11 +110,9 @@ const AddSensor = ({ onClose, onAdd }) => {
             />
           </div>
           <div className="flex flex-col w-[100%] ">
-            <Label label="location" />
-            <input
-              labelWeight="font-semibold"
+            <Input
+              label="Location"
               type="text"
-              className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
               placeholder="location"
               name="location"
               onChange={handleSensorChange}
@@ -131,11 +123,9 @@ const AddSensor = ({ onClose, onAdd }) => {
         </div>
 
         <div className="flex flex-col w-[100%] ">
-          <Label label="Unique Id" />
-          <input
-            labelWeight="font-semibold"
+          <Input
+            label="Unique Id"
             type="text"
-            className="w-full p-2 outline-none border-gray-300 bg-[#FFFFFF] border-[1px] border-[#00000040] rounded"
             placeholder="Unique Id"
             name="uniqueId"
             onChange={handleSensorChange}
@@ -144,22 +134,9 @@ const AddSensor = ({ onClose, onAdd }) => {
           />
         </div>
         <div className="flex justify-end gap-2">
-          <button
-            type="submit"
-            onClick={onClose}
-            className="px-8 py-2 bg-[#ACACAC25] text-black rounded "
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-8 py-2 bg-purple-600 text-white rounded disabled:opacity-50"
-            style={{
-              background: "linear-gradient(to bottom, #039099, #C51FFF)",
-            }}
-          >
-            Add
-          </button>
+          <Button text="Cancel" onClick={onClose} />
+
+          <Button type="submit" text="Add" />
         </div>
       </div>
     </form>
@@ -167,7 +144,3 @@ const AddSensor = ({ onClose, onAdd }) => {
 };
 
 export default AddSensor;
-
-const Label = ({ label }) => (
-  <label className="text-[#000] text-base mb-2 block font-[500]">{label}</label>
-);

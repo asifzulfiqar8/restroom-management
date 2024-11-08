@@ -1,10 +1,9 @@
-import React from "react";
 import PieChartComponent from "../../../../components/charts/pieChart/PieChart";
 import Building from "../../../../../public/assets/images/dashboard/Building";
 
 const TopBuilding = () => {
   return (
-    <div className="piechart p-5">
+    <div className="bg-white rounded-2xl shadow-md border-[1px] p-5 h-full">
       <div className="flex gap-1 items-center">
         <Building />
         <h2 className="text-[20px] leading-[30px] font-[500] ">

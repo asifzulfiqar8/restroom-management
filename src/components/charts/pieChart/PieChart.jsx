@@ -16,9 +16,9 @@ const PieChartComponent = () => {
         <Pie
           data={data}
           innerRadius={60}
-          outerRadius={120}
+          outerRadius={100}
           fill="#8884d8"
-          paddingAngle={7}
+          paddingAngle={2}
           dataKey="value"
           labelLine={false}
           label={renderCustomizedLabel}

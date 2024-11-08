@@ -51,3 +51,27 @@ export const planCards = [
     btnBg: "#F2AC44",
   },
 ];
+
+export const buildingCardData = [
+  {
+    buildingLocation: "abc",
+    buildingName: "xyz",
+    buildingType: "commercial",
+    totalFloors: 3,
+    totalRestrooms: 11,
+  },
+  {
+    buildingLocation: "abc",
+    buildingName: "xyz",
+    buildingType: "commercial",
+    totalFloors: 3,
+    totalRestrooms: 11,
+  },
+  {
+    buildingLocation: "abc",
+    buildingName: "xyz",
+    buildingType: "commercial",
+    totalFloors: 3,
+    totalRestrooms: 11,
+  },
+];

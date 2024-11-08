@@ -28,7 +28,7 @@ const Alerts = () => {
   };
 
   return (
-    <div className="piechart p-5">
+    <div className="bg-white rounded-2xl shadow-md border-[1px] p-5 h-full ">
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-1">
           <Alert />

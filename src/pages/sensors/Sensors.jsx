@@ -12,6 +12,7 @@ import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
 import { getAllSensors } from "../../service/sensorService";
 import { toast } from "react-toastify";
 import { updateSensor } from "../../service/sensorService";
+import { sensorData } from "./sensor";
 
 const columns = (modalOpenHandler, handleStatusToggle) => [
   {
@@ -66,7 +67,7 @@ const columns = (modalOpenHandler, handleStatusToggle) => [
             <IoEye fontSize={23} />
           </div>
         </Link> */}
-        <Link to={`/home/view-sensor/${row._id}`}>
+        <Link to={`/home/view-sensor`}>
           <div className="cursor-pointer">
             <IoEye fontSize={23} />
           </div>
@@ -168,7 +169,7 @@ const Sensors = () => {
         <div className="mt-5">
           <DataTable
             columns={columns(modalOpenHandler, handleStatusToggle)}
-            data={sensors}
+            data={sensorData}
             selectableRows
             selectableRowsHighlight
             customStyles={tableStyles}

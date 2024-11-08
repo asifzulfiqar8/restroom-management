@@ -1,4 +1,4 @@
-import Card from "./Card";
+import BuildingCard from "./BuildingCard";
 
 const buildingDatas = [
   { name: "Building A" },
@@ -11,7 +11,7 @@ const ImageCard = () => {
       <h2 className="text-2xl mb-4 font-semibold">All Buildings</h2>
       <div className="grid xs:grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 gap-4">
         {buildingDatas.map((data, i) => {
-          <Card name={data.name} />;
+          <BuildingCard name={data.name} />;
         })}
       </div>
     </div>

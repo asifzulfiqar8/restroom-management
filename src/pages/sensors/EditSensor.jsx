@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { updateSensor } from "../../service/sensorService";
 import { toast } from "react-toastify";
+import Input from "../../components/shared/input/Input";
+import Button from "../../components/shared/button/Button";
 
 const EditSensor = ({ selectedSensor, onClose, refetch }) => {
   const [editSensor, setEditSensor] = useState({
@@ -54,112 +56,93 @@ const EditSensor = ({ selectedSensor, onClose, refetch }) => {
       <div className="flex flex-col gap-4 mt-2">
         <div className="flex gap-2">
           <div className="flex flex-col w-[100%]">
-            <Label label="Sensor Name" />
-            <input
+            <Input
+              label="Sensor Name"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
               placeholder="Sensor Name"
               name="sensorName"
-              value={editSensor.sensorName}
               onChange={handleChange}
+              value={editSensor.sensorName}
               required
             />
           </div>
-          <div className="flex flex-col w-[100%]">
-            <Label label="Type" />
-            <input
+          <div className="flex flex-col w-[100%] ">
+            <Input
+              label="Type"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
               placeholder="Type"
               name="type"
-              value={editSensor.type}
               onChange={handleChange}
+              value={editSensor.type}
               required
             />
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex flex-col w-[100%]">
-            <Label label="IP" />
-            <input
+          <div className="flex flex-col w-[100%] ">
+            <Input
+              label="IP"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
               placeholder="IP"
               name="ip"
-              value={editSensor.ip}
               onChange={handleChange}
+              value={editSensor.ip}
               required
             />
           </div>
-          <div className="flex flex-col w-[100%]">
-            <Label label="Port" />
-            <input
+          <div className="flex flex-col w-[100%] ">
+            <Input
+              label="Port"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
               placeholder="Port"
               name="port"
-              value={editSensor.port}
               onChange={handleChange}
+              value={editSensor.port}
               required
             />
           </div>
         </div>
         <div className="flex gap-2">
-          <div className="flex flex-col w-[100%]">
-            <Label label="Unique Id" />
-            <input
+          <div className="flex flex-col w-[100%] ">
+            <Input
+              label="URL"
+              labelWeight="font-semibold"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
-              placeholder="Unique Id"
-              name="uniqueId"
-              value={editSensor.uniqueId}
+              placeholder="url"
+              name="url"
               onChange={handleChange}
+              value={editSensor.url}
               required
             />
           </div>
-          <div className="flex flex-col w-[100%]">
-            <Label label="Url" />
-            <input
+          <div className="flex flex-col w-[100%] ">
+            <Input
+              label="Location"
               type="text"
-              className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
-              placeholder="Unique Id"
-              name="uniqueId"
-              value={editSensor.url}
+              placeholder="location"
+              name="location"
               onChange={handleChange}
+              value={editSensor.location}
               required
             />
           </div>
         </div>
 
-        <div className="flex flex-col w-[100%]">
-          <Label label="location" />
-          <input
+        <div className="flex flex-col w-[100%] ">
+          <Input
+            label="Unique Id"
             type="text"
-            className="w-full p-2 border border-gray-300 bg-[#FFFFFF] border-[#00000040] rounded"
             placeholder="Unique Id"
-            name="location"
-            value={editSensor.location}
+            name="uniqueId"
             onChange={handleChange}
+            value={editSensor.uniqueId}
             required
           />
         </div>
         <div className="flex justify-end gap-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-8 py-2 bg-[#ACACAC25] text-black rounded"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-8 py-2 bg-purple-600 text-white rounded disabled:opacity-50"
-            style={{
-              background: "linear-gradient(to bottom, #039099, #C51FFF)",
-            }}
-          >
-            Update
-          </button>
+          <Button text="Cancel" onClick={onClose} />
+
+          <Button type="submit" text="Update" />
         </div>
       </div>
     </form>
@@ -167,7 +150,3 @@ const EditSensor = ({ selectedSensor, onClose, refetch }) => {
 };
 
 export default EditSensor;
-
-const Label = ({ label }) => (
-  <label className="text-[#000] text-base mb-2 block font-[500]">{label}</label>
-);

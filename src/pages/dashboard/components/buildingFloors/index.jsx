@@ -10,17 +10,22 @@ import FloorsActivity from "./FloorsActivity";
 import AllFloors from "./AllFloors";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BiEdit, BiLoader, BiTrash } from "react-icons/bi";
-import { Button, Dialog, DialogHeader, DialogFooter } from "@material-tailwind/react";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogFooter,
+} from "@material-tailwind/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const BuildingFloors = ({ floorType = "All Floors" }) => {
   const id = useParams().id;
-  const { data, refetch } = useGetSingleBuildingQuery(id);
-  const [deleteBuilding] = useDeleteBuildingMutation();
+  // const { data, refetch } = useGetSingleBuildingQuery(id);
+  // const [deleteBuilding] = useDeleteBuildingMutation();
   const [open, setOpen] = useState(false);
-  const [enteredId, setEnteredId] = useState('');
+  const [enteredId, setEnteredId] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,9 +50,8 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
         dispatch(removeBuilding(id)); // Remove building from Redux store
         toast.success(res.data.message);
         refetch(); // Refresh the data after successful deletion
-        navigate('/home/building'); // Navigate to the buildings list
+        navigate("/home/building"); // Navigate to the buildings list
       }
-
     } catch (error) {
       toast.error(error.data.message);
     }
@@ -56,14 +60,14 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
   const infoCardsData = [
     {
       title: "Total Floors",
-      count: data?.building?.totalFloors || 0,
+      count: 2,
       icon: greenStep,
       borderColor: "#078E9B",
       hoverColor: "#078E9B15",
     },
     {
       title: "Total Restrooms",
-      count: data?.building?.totalRestrooms || 0,
+      count: 5,
       icon: purpleRestroom,
       borderColor: "#A449EB",
       hoverColor: "#A449EB15",
@@ -77,7 +81,7 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
     },
     {
       title: "Total Sensors",
-      count: data?.building?.totalSensors,
+      count: 9,
       icon: pinkBuzzer,
       borderColor: "#FF4D85",
       hoverColor: "#FF4D8515",
@@ -87,23 +91,38 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
   return (
     <section className="parentContainer">
       <div className="deleteBuilding flex justify-end mb-3">
-        <div style={{ backgroundColor: 'white', padding: '5px', borderRadius: '50%' }}>
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "5px",
+            borderRadius: "50%",
+          }}
+        >
           <BiTrash
             onClick={handleOpen}
-            style={{ cursor: 'pointer', color: 'red', fontSize: '1.5rem' }}
+            style={{ cursor: "pointer", color: "red", fontSize: "1.5rem" }}
           />
         </div>
-        <div style={{ backgroundColor: 'white', padding: '5px', borderRadius: '50%', marginLeft: '10px' }}>
-          <Link to={`/home/update-building/${data?.building?._id}`}>
-            <BiEdit
-              style={{ cursor: 'pointer', color: 'blue', fontSize: '1.5rem' }}
-            />
-          </Link>
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "5px",
+            borderRadius: "50%",
+            marginLeft: "10px",
+          }}
+        >
+          {/* <Link to={`/home/update-building/${data?.building?._id}`}> */}
+          <BiEdit
+            style={{ cursor: "pointer", color: "blue", fontSize: "1.5rem" }}
+          />
+          {/* </Link> */}
         </div>
         <Dialog open={open} onClose={handleOpen} maxWidth="xs" fullWidth>
           <div className="p-5">
-            <DialogHeader className="font-semibold text-lg mb-4 p-0">Confirmation!</DialogHeader>
-            <p className="mb-2 text-red-300">{data?.building?._id}</p>
+            <DialogHeader className="font-semibold text-lg mb-4 p-0">
+              Confirmation!
+            </DialogHeader>
+            <p className="mb-2 text-red-300">12</p>
             <div className="mb-4">
               <input
                 type="text"
@@ -134,7 +153,7 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="piechart p-5 md:col-span-12 xl:col-span-8">
           <img
-            src={data?.building?.buildingModelImage || <BiLoader />}
+            src={<BiLoader />}
             alt="Building Model"
             className="w-full object-cover"
             style={{ height: "500px" }}
@@ -173,20 +192,20 @@ const BuildingFloors = ({ floorType = "All Floors" }) => {
 
       <div className="grid grid-cols-1 mt-4 piechart p-5">
         <div className="flex justify-between items-center">
-          <h2 className="text-[20px] leading-[30px] font-[500]">
-            {floorType}
-          </h2>
+          <h2 className="text-[20px] leading-[30px] font-[500]">Dense</h2>
 
-          {data?.building?.restRooms?.length > 1 && (
-            <Link to={`/home/all-floors?data=${encodeURIComponent(JSON.stringify(data?.building?.restRooms))}`}>
-              <button className="text-[#A449EB]">View all</button>
-            </Link>
-          )}
+          {/* {data?.building?.restRooms?.length > 1 && (
+            <Link
+              to={`/home/all-floors?data=${encodeURIComponent(
+                JSON.stringify(data?.building?.restRooms)
+              )}`}
+            > */}
+          <button className="text-[#A449EB]">View all</button>
+          {/* </Link>
+          )} */}
         </div>
-
-        {data?.building?.restRooms?.map((floor, index) => (
-          <AllFloors data={floor} key={index} buildingId={id} />
-        ))}
+        {/* {data?.building?.restRooms?.map((floor, index) => ( */}
+        <AllFloors />
       </div>
     </section>
   );

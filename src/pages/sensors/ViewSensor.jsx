@@ -188,8 +188,6 @@
 
 //get single sensor
 
-
-
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LineChart from "../../components/charts/areaChart/LineChart";
@@ -208,23 +206,23 @@ const ViewSensor = () => {
   const modalOpenHandler = (modalType) => setModal(modalType);
   const modalCloseHandler = () => setModal(false);
 
-  useEffect(() => {
-    const getSensorData = async () => {
-      try {
-        const response = await getSensorById(id);
-        console.log("Fetched Sensor Data:", response);
-        if (response.success) {
-          setSensorData(response.sensor);
-        } else {
-          console.error("Failed to fetch sensor data:", response.Message);
-        }
-      } catch (error) {
-        console.error("Failed to fetch sensor data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const getSensorData = async () => {
+  //     try {
+  //       const response = await getSensorById(id);
+  //       console.log("Fetched Sensor Data:", response);
+  //       if (response.success) {
+  //         setSensorData(response.sensor);
+  //       } else {
+  //         console.error("Failed to fetch sensor data:", response.Message);
+  //       }
+  //     } catch (error) {
+  //       console.error("Failed to fetch sensor data:", error);
+  //     }
+  //   };
 
-    getSensorData();
-  }, [id]);
+  //   getSensorData();
+  // }, [id]);
 
   const handleDeleteSensor = async () => {
     try {
@@ -235,13 +233,7 @@ const ViewSensor = () => {
     }
   };
 
-  // Ensure we return loading state or a message if sensorData is not loaded yet
-  if (!sensorData) {
-    return <div>Loading...</div>; // You can customize this loading state
-  }
-
   return (
-   
     <div className="parentContainer">
       <div className=" piechart rounded-lg p-8">
         <div className="flex justify-between items-center">
@@ -270,18 +262,14 @@ const ViewSensor = () => {
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">Sensor Name</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.sensorName}
-                </span>
+                <span className="text-purple-600 font-medium">Water Usage</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">Type</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.type}
-                </span>
+                <span className="text-purple-600 font-medium">Occupancy</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
@@ -289,7 +277,7 @@ const ViewSensor = () => {
               >
                 <span className="text-gray-500">Location</span>
                 <span className="text-purple-600 font-medium">
-                  {sensorData.location}
+                  Restroom 01, Floor 2
                 </span>
               </div>
               <div
@@ -297,27 +285,21 @@ const ViewSensor = () => {
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">IP Address</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.ip}
-                </span>
+                <span className="text-purple-600 font-medium">192.168.1.1</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">Port</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.port}
-                </span>
+                <span className="text-purple-600 font-medium">564</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">URL</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.url}
-                </span>
+                <span className="text-purple-600 font-medium">sensor.here</span>
               </div>
             </div>
 
@@ -330,18 +312,14 @@ const ViewSensor = () => {
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">Status</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.status}
-                </span>
+                <span className="text-purple-600 font-medium">Active</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
                 className="flex justify-between items-center mt-2 rounded-md p-3"
               >
                 <span className="text-gray-500">Unique ID</span>
-                <span className="text-purple-600 font-medium">
-                  {sensorData.uniqueId}
-                </span>
+                <span className="text-purple-600 font-medium">12345</span>
               </div>
               <div
                 style={{ boxShadow: "0 1px 4px rgba(0, 0, 0, 0.25)" }}
@@ -349,7 +327,8 @@ const ViewSensor = () => {
               >
                 <span className="text-gray-500">Connection Status</span>
                 <span className="text-purple-600 font-medium">
-                  {sensorData.isConnected ? "Connected" : "Disconnected"}
+                  {/* {sensorData.isConnected ? "Connected" : "Disconnected"} */}
+                  Connected
                 </span>
               </div>
             </div>
@@ -359,7 +338,7 @@ const ViewSensor = () => {
               <h3 className="text-[#A449EB] text-[16px] font-[600] leading-[32px]">
                 Historical Data
               </h3>
-              <LineChart show={false} />
+              <LineChart show={true} />
             </div>
           </div>
 
@@ -368,8 +347,7 @@ const ViewSensor = () => {
               <h3 className="text-[#A449EB] text-[16px] font-[600] leading-[32px]">
                 Alert History
               </h3>
-              <div className="flex flex-col mt-4">
-                {/* Replace with actual alert data */}
+              {/* <div className="flex flex-col mt-4">
                 {sensorData.alerts && sensorData.alerts.length > 0 ? (
                   sensorData.alerts.map((alert, index) => (
                     <div
@@ -388,7 +366,7 @@ const ViewSensor = () => {
                     No alerts found
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -1,62 +1,38 @@
-import DashboardIcon from "../../../assets/images/aside/BuildingIcon";
-import BuildingIcon from "../../../assets/images/aside/DashboardIcon";
-import SensorIcon from "../../../assets/images/aside/SensorIcon";
-import SettingIcon from "../../../assets/images/aside/SettingIcon";
-import PlanIcon from "../../../assets/images/aside/PlanIcon";
-import ReportIcon from "../../../assets/images/aside/ReportIcon";
+import DashboardIcon from "../../../../assets/images/aside/BuildingIcon";
+import BuildingIcon from "../../../../assets/images/aside/DashboardIcon";
+import SensorIcon from "../../../../assets/images/aside/SensorIcon";
+import SettingIcon from "../../../../assets/images/aside/SettingIcon";
+import PlanIcon from "../../../../assets/images/aside/PlanIcon";
+import ReportIcon from "../../../../assets/images/aside/ReportIcon";
 
 export const pages = [
   {
     title: "Dashboard",
-    icon: <DashboardIcon />,
-    link: "/home/dashboard",
-  },
-  {
-    title: "Buildings",
-    link: "/home/building",
     icon: <BuildingIcon />,
+
+    link: "/admin",
   },
 
   {
-    title: "Sensors",
-    link: "/home/sensor",
-    icon: <SensorIcon />,
-  },
-
-  {
-    title: "Reports",
-    link: "/home/reports",
-    icon: <ReportIcon />,
-  },
-  {
-    title: "Plans",
-    link: "/home/plan",
-    icon: <PlanIcon />,
-  },
-
-  {
-    title: "Settings",
+    title: "Setting",
+    link: "/admin/setting",
     icon: <SettingIcon />,
-    subPages: [
-      {
-        title: "Profile",
-        link: "/home/setting",
-      },
-      {
-        title: "Subscriptions",
-        link: "/home/subscription",
-      },
-
-      {
-        title: "Change Password",
-        link: "/home/change-password",
-      },
-      {
-        title: "Configuration",
-        link: "/home/configuration",
-      },
-    ],
   },
+
+  // {
+  //   title: "Settings",
+  //   icon: <SettingIcon />,
+  //   subPages: [
+  //     {
+  //       title: "Profile",
+  //       link: "/home/setting",
+  //     },
+  //     {
+  //       title: "Configuration",
+  //       link: "/home/configuration",
+  //     },
+  //   ],
+  // },
 ];
 
 //  const pages = [

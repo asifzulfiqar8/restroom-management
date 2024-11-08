@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../../assets/images/auth/logo.svg";
+import logo from "../../../../assets/images/auth/logo.svg";
 // import { ChevronIcon, Hambarger } from "../../../assets/svgs";
 import { pages } from "./pages";
 import { Link, useLocation } from "react-router-dom";

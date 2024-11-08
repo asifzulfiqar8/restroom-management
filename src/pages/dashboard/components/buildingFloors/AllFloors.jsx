@@ -5,20 +5,25 @@ import blueRestroom from "../../../../assets/dashboard/subComponent/blueRestroom
 import redSensor from "../../../../assets/dashboard/subComponent/redSensor.svg";
 import { Link, useParams } from "react-router-dom";
 
-const AllFloors = ({data}) => {
+const AllFloors = ({ data }) => {
   const id = useParams().id;
   return (
     <div className="">
-      
       <div>
         <div className="piechart p-5">
           <div className="grid grid-cols-12 gap-3">
             <div className="col-span-12 md:col-span-12 xl:col-span-2">
-              <img src={data?.floorRoomImage} className="object-cover" height={"100px"} width={"100px"}  alt="Floor"  />
+              <img
+                src={data?.floorRoomImage}
+                className="object-cover"
+                height={"100px"}
+                width={"100px"}
+                alt="Floor"
+              />
             </div>
             <div className=" col-span-12 md:col-span-12 xl:col-span-8">
               <p className="text-[#414141] text-lg leading-[19.1px] font-semibold">
-                {building?.building?.buildingname}
+                Building Name
               </p>
               <div className="grid grid-cols-12 mt-9 gap-3  ">
                 <div className="col-span-12 md:col-span-12 xl:col-span-3  ">
@@ -29,7 +34,7 @@ const AllFloors = ({data}) => {
                         Total rooms
                       </p>
                       <p className="font-[500] text-[16px] leading-[21.82px] text-[#00000080]">
-                      {building?.building?.totalRestrooms}
+                        12
                       </p>
                     </div>
                   </div>
@@ -68,7 +73,7 @@ const AllFloors = ({data}) => {
                         Active Sensors
                       </p>
                       <p className="font-[500] text-[16px] leading-[21.82px] text-[#00000080]">
-                       a
+                        a
                       </p>
                     </div>
                   </div>
@@ -77,7 +82,10 @@ const AllFloors = ({data}) => {
             </div>
 
             <div className="col-span-12 md:col-span-2 flex justify-center items-center">
-              <Link to={`/home/floor/${id}/${data?._id}`} onClick={() => window.scrollTo(0, 0)}>
+              <Link
+                // to={`/home/floor/${id}/${data?._id}`}
+                onClick={() => window.scrollTo(0, 0)}
+              >
                 <button className="text-[#A449EB] text-[16px] w-fit leading-[21px] font-bold underline bg-[#EED8FF] p-3 rounded-[10px]">
                   View Details
                 </button>

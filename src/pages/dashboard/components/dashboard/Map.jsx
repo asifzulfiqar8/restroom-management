@@ -18,7 +18,9 @@ const SetMapBounds = ({ buildings }) => {
   const map = useMap();
 
   if (buildings?.length > 0) {
-    const bounds = L.latLngBounds(buildings.map(building => [building?.latitude, building?.longitude]));
+    const bounds = L.latLngBounds(
+      buildings.map((building) => [building?.latitude, building?.longitude])
+    );
     map.fitBounds(bounds);
   }
 
@@ -30,7 +32,7 @@ const Map = () => {
 
   return (
     <MapContainer
-      center={[0, 0]} // Initial center, will be overridden by SetMapBounds
+      center={[3, 15]} // Initial center, will be overridden by SetMapBounds
       zoom={9}
       style={{ height: "430px", width: "100%", borderRadius: "15px" }}
       attributionControl={false}
@@ -45,7 +47,7 @@ const Map = () => {
         <SetMapBounds buildings={data.buildings} />
       )} */}
 
-        {/* {data?.buildings?.map((building) => (
+      {/* {data?.buildings?.map((building) => (
           <Marker
             key={building._id}
             position={[building?.latitude||34.345234, building?.longitude||24.453456]}

@@ -3,7 +3,7 @@ import AreaCharts from "../../../../components/charts/areaChart/AreaChart";
 
 const OverallPerformance = () => {
   return (
-    <div className="piechart py-5">
+    <div className="bg-white rounded-2xl shadow-md border-[1px] p-5">
       <AreaCharts
         width="100%"
         height={300}

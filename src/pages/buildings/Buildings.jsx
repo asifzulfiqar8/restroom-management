@@ -1,7 +1,8 @@
 import { FaPlus, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import Card from "../../components/card/Card";
+import BuildingCard from "../../components/card/BuildingCard";
 import { useEffect, useState } from "react";
+import { buildingCardData } from "../../data/data";
 
 const Buildings = () => {
   const location = useLocation();
@@ -29,37 +30,37 @@ const Buildings = () => {
   };
 
   return (
-    <div className="parentContainer animate-slide-up">
-      <div className="piechart p-5">
-        <div className="mb-4 flex justify-between items-center">
-          <h4 className="text-[20px] font-[600] leading-[32px]">All Buildings</h4>
-          <Link to="/home/add-building">
-            <FaPlus className="text-blue-500 hover:text-blue-600 text-2xl" />
+    // <div className=" animate-slide-up">
+    <div className="bg-white rounded-2xl shadow-md border-[1px] p-5">
+      <div className="mb-4 flex justify-between items-center">
+        <h4 className="text-[20px] font-[600] leading-[32px]">All Buildings</h4>
+        <Link to="/home/add-building">
+          <FaPlus className="text-blue-500 hover:text-blue-600 text-2xl" />
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 ">
+        {buildingCardData.map((id, building) => (
+          <Link to={`/home/buildings/building`} key={id}>
+            <BuildingCard data={building} />
           </Link>
-        </div>
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 ">
-          {/* {data?.buildings?.map((building) => (
-            <Link to={`/home/buildings/${building?._id}`} key={building?._id}>
-              <Card data={building} />
-            </Link>
-          ))} */}
-        </div>
-        <div className="pagination-controls mt-8 flex flex-col items-center space-y-2">
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={handlePreviousPage}
-              disabled={page === 1}
-              className={`px-5 py-3 rounded-l-lg transition-colors duration-200 ${
-                page === 1
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-[#A449EB] text-white hover:bg-blue-600"
-              }`}
-            >
-              <FaChevronLeft />
-            </button>
-            
-            {/* Page Number Group */}
-            {/* {Array.from({ length: data?.totalPages }, (_, i) => i + 1).map((pageNumber) => (
+        ))}
+      </div>
+      <div className="pagination-controls mt-8 flex flex-col items-center space-y-2">
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={handlePreviousPage}
+            disabled={page === 1}
+            className={`px-5 py-3 rounded-l-lg transition-colors duration-200 ${
+              page === 1
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-[#A449EB] text-white hover:bg-blue-600"
+            }`}
+          >
+            <FaChevronLeft />
+          </button>
+
+          {/* Page Number Group */}
+          {/* {Array.from({ length: data?.totalPages }, (_, i) => i + 1).map((pageNumber) => (
               <button
                 key={pageNumber}
                 onClick={() => setPage(pageNumber)}
@@ -73,7 +74,7 @@ const Buildings = () => {
               </button>
             ))}
              */}
-            {/* <button
+          {/* <button
               onClick={handleNextPage}
               disabled={page >= data?.totalPages}
               className={`px-5 py-3 rounded-r-lg transition-colors duration-200 ${
@@ -84,13 +85,13 @@ const Buildings = () => {
             >
               <FaChevronRight />
             </button> */}
-          </div>
-          {/* <span className="text-gray-700 font-semibold mt-2 ">
+        </div>
+        {/* <span className="text-gray-700 font-semibold mt-2 ">
             Page {page} of {data?.totalPages}
           </span> */}
-        </div>
       </div>
     </div>
+    // </div>
   );
 };
 

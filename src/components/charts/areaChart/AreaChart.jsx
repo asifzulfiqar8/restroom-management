@@ -58,9 +58,9 @@ const AreaCharts = ({
   show = false,
 }) => {
   return (
-    <div className="flex flex-col h-full mt-5">
+    <div className="flex flex-col h-full">
       {title !== "" && (
-        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 p-5">
+        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3">
           {title}
         </h2>
       )}
