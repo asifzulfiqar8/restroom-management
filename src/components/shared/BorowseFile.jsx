@@ -96,7 +96,7 @@ export default BrowseFile;
 
 const BrowseFileBtn = ({ onFileChange }) => {
   return (
-    <button className="relative px-4 py-2 cursor-pointer rounded-lg bg-primary-lightBlue text-white font-semibold">
+    <button className="relative px-4 py-2 cursor-pointer rounded-lg bg-primary-lightBlue text-primary font-semibold">
       Browse File
       <input
         type="file"
