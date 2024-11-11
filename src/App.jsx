@@ -2,10 +2,6 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AreaChart from "./components/charts/areaChart/AreaChart";
 import Cancel from "./components/shared/plans/components/Cancel.jsx";
 import Success from "./components/shared/plans/components/Success.jsx";
-
-import ForgetPassword from "./pages/auth/ForgotPassword";
-import ResetPassword from "./pages/auth/ResetPassword";
-import AddBuildingStepper from "./pages/buildings/AddBuildingStepper.jsx";
 import AllRestRooms from "./pages/buildings/allRestRooms/AllRestRooms.jsx";
 import Buildings from "./pages/buildings/Buildings";
 import AdminDashboard from "./pages/dashboard/AdminDashboard.jsx";
@@ -36,6 +32,7 @@ import Reports from "./pages/downloadReport/Reports.jsx";
 import Admin from "./pages/admin/layout/index.jsx";
 import AdminProfile from "./pages/admin/settings/components/Profile.jsx";
 import AdminChangePassword from "./pages/admin/settings/components/ChangePassword.jsx";
+import AddBuildingStepper from './pages/buildings/addBuildingStepper/AddBuildingStepper.jsx'
 
 const App = () => {
   return (

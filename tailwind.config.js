@@ -9,7 +9,7 @@ export default withMT({
         custom: "2px 2px 6px rgba(0, 0, 0, 0.2)",
       },
       colors: {
-        primary: "#C51FFFE0",
+        primary: "#A449EB",
         secondary: "#039099",
       },
     },
