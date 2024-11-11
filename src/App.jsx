@@ -27,6 +27,8 @@ import Signin from "./pages/Signin.jsx";
 import Home from "./components/layout/index.jsx";
 import InspectionHome from "./inspection/layout/index.jsx";
 import InspectionDashboard from "./inspection/pages/dashboard/InspectionDashboard.jsx";
+import InspectionProfile from "./inspection/pages/settings/components/Profile.jsx";
+import InspectionChangePassword from "./inspection/pages/settings/components/ChangePassword.jsx";
 import Inspections from "./inspection/pages/inspection/Inspections.jsx";
 import Configuration from "./pages/settings/Configuration.jsx";
 import ReportsList from "./pages/downloadReport/ReportsList.jsx";
@@ -66,9 +68,12 @@ const App = () => {
 
       <Route path="/inspection" element={<InspectionHome />}>
         <Route index element={<Navigate replace to="dashboard" />} />
-        <Route path="dashboard" element={<InspectorReporting />} />
+        <Route path="dashboard" element={<InspectionDashboard />} />
+        <Route path="history" element={<InspectorReporting />} />
         <Route path="all-inspections" element={<Inspections />} />
         <Route path="all-restrooms" element={<AllRestRooms />} />
+        <Route path="profile" element={<InspectionProfile />} />
+        <Route path="change-password" element={<InspectionChangePassword />} />
       </Route>
       <Route path="/admin" element={<Admin />}>
         <Route index element={<Navigate replace to="dashboard" />} />

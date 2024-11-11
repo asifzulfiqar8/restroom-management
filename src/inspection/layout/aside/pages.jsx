@@ -14,7 +14,7 @@ export const pages = [
   },
   {
     title: "History",
-    link: "/inspection",
+    link: "/inspection/history",
     icon: <ReportIcon />,
   },
   {
@@ -24,9 +24,18 @@ export const pages = [
   },
 
   {
-    title: "Setting",
-    link: "/inspection",
+    title: "Settings",
     icon: <SettingIcon />,
+    subPages: [
+      {
+        title: "Profile",
+        link: "/inspection/profile",
+      },
+      {
+        title: "Change Password",
+        link: "/inspection/change-password",
+      },
+    ],
   },
 
   // {
