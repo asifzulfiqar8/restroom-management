@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../../../components/shared/button/Button";
+import RestroomAccordion from "./RestroomAccordion";
 
 const Restrooms = ({ setCurrentStep }) => {
   return (
@@ -7,7 +8,9 @@ const Restrooms = ({ setCurrentStep }) => {
       <h6 className="text-base text-primary font-medium">
         Restrooms
       </h6>
-
+      <div className="my-5">
+        <RestroomAccordion />
+      </div>
       <div className="flex items-center justify-end gap-4">
         <Button
           text="Back"
