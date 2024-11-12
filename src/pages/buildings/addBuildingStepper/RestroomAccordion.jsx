@@ -48,9 +48,9 @@ const Restroom = ({ isOpen, onToggle }) => {
         <div className="flex items-center gap-4">
           <div className="cursor-pointer" onClick={onToggle}>
             {isOpen && (
-              <HiOutlineMinusSm fontSize={20} className="text-primary" />
+              <HiOutlineMinusSm fontSize={20} className={`${isOpen ? 'text-primary':'text-[#666666]'}`} />
             )}
-            {!isOpen && <IoAdd fontSize={20} className="text-primary" />}
+            {!isOpen && <IoAdd fontSize={20} className={`${isOpen ? 'text-primary':'text-[#666666]'}`} />}
           </div>
         </div>
       </div>
