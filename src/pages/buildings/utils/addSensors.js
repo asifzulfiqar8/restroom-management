@@ -127,7 +127,7 @@ const handleImageUpload = (
       const newPolygon = [...currentPolygon, { x, y }];
       setCurrentPolygon(newPolygon);
   
-      console.log('polygons', polygons)
+      // console.log('polygons', polygons)
 
       if (newPolygon.length === 4) {
         const polygonWithId = {
@@ -345,7 +345,6 @@ const handleImageUpload = (
   
   // attaching sensor to the polygon
   const updateSensorAttached = ({polygonId, sensor, polygons,sensorAttached,setPolygons}) => {
-    console.log('sensor attached', sensorAttached)
     const updatedPolygons = polygons?.map((polygon) => {
       return polygon?.id === polygonId
         ? { ...polygon, id: sensor, sensorAttached }

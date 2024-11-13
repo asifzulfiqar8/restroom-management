@@ -55,7 +55,6 @@ const BookParkingSpace = () => {
     setSensorIdInput("");
   };
 
-  console.log('selectedSensor', selectedSensor)
   const handleAddSensor = () => {
     if (sensorIdInput) {
       updateSensorAttached({
