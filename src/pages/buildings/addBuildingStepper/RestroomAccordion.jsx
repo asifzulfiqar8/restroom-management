@@ -3,8 +3,7 @@ import Dropdown from "../../../components/shared/dropdown/Dropdown";
 import Input from "../../../components/shared/input/Input";
 import { IoAdd } from "react-icons/io5";
 import { HiOutlineMinusSm } from "react-icons/hi";
-import AddRestroom from "./AddRestroom";
-
+import AddSensors from './AddSensors'
 const floors = 3;
 
 const RestroomAccordion = () => {
@@ -76,7 +75,7 @@ const Restroom = ({ isOpen, onToggle }) => {
           <Input label="Area" type="text" placeholder="Sq ft" />
           <Input label="Number of Toilets" type="text" placeholder="5" />
           <div className="lg:col-span-3 flex justify-center">
-            <AddRestroom />
+            <AddSensors />
           </div>
         </div>
       )}
