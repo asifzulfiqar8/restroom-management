@@ -6,9 +6,40 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";
+import { useSignupMutation } from "../../services/auth/authApi";
 
 const Register = () => {
-const [formData, setFormData] = useState({fullName:'',email:'',password:'',confirmPassword:''});
+  const navigate = useNavigate();
+  const [signup, {isLoading}] = useSignupMutation()
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const formDataHandler = (e) => setFormData({...formData, [e.target.name]: e.target.value})
+
+  const formSubmitHandler = async (e) => {
+    e.preventDefault()
+    const areFieldsEmpty = Object.values(formData).some(value => !value);
+
+    if(formData.password !== formData.confirmPassword) {
+      toast.error('Passwords do not matched');
+      return;
+    } else if (areFieldsEmpty) {
+      toast.error('Are field are required');
+      return;
+    }
+
+    try {
+      await signup(formData).unwrap()
+      toast.success('Signup successful! You can now log in.')
+      navigate('/login')
+    } catch (error) {
+      toast.error('User already exists or Internal Server error')
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -55,13 +86,14 @@ const [formData, setFormData] = useState({fullName:'',email:'',password:'',confi
           </p>
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-4">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={formSubmitHandler}>
               <div>
                 <Input
                   id="full-name"
                   name="fullName"
                   type="text"
-                  required
+                  value={formData.fullName}
+                  onChange={(e) => formDataHandler(e)}
                   placeholder="Full Name"
                 />
               </div>
@@ -72,8 +104,9 @@ const [formData, setFormData] = useState({fullName:'',email:'',password:'',confi
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => formDataHandler(e)}
                 />
               </div>
 
@@ -83,8 +116,9 @@ const [formData, setFormData] = useState({fullName:'',email:'',password:'',confi
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) => formDataHandler(e)}
                 />
               </div>
 
@@ -94,12 +128,13 @@ const [formData, setFormData] = useState({fullName:'',email:'',password:'',confi
                   name="confirmPassword"
                   type="password"
                   autoComplete="new-password"
-                  required
                   placeholder="Confirm Password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => formDataHandler(e)}
                 />
               </div>
               <div>
-                <Button text="Signup" type="submit" width="w-full" />
+                <Button disabled={isLoading} text={isLoading ? 'Signing up...':'Sign up'} type="submit" width="w-full" />
               </div>
 
               <div>

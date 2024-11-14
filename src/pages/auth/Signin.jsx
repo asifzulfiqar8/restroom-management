@@ -6,9 +6,30 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";
+import { useLoginMutation } from "../../services/auth/authApi";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../services/auth/authSlice";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [login, {isLoading}] = useLoginMutation()
+
+  const formDataHandler = (e) => setFormData({...formData, [e.target.name]: e.target.value})
+
+  const formSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const {user, token} = await login(formData).unwrap();
+      dispatch(loginSuccess(user, token))
+      localStorage.setItem('token', token);
+      navigate('/home')
+    } catch (error) {
+      toast.error('Invalid credentials or server error')
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -27,15 +48,16 @@ const Signin = () => {
           </p>
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-4">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={formSubmitHandler}>
               <div>
                 <Input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
-                  required
                   placeholder="Email address"
+                  value={formData.email}
+                  onChange={(e) => formDataHandler(e)}
                 />
               </div>
 
@@ -45,13 +67,14 @@ const Signin = () => {
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
                   placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) => formDataHandler(e)}
                 />
               </div>
 
               <div>
-                <Button text="login" type="submit" width="w-full" />
+                <Button disabled={isLoading} text={isLoading ? 'Logging in...':'Log In'} type="submit" width="w-full" />
               </div>
 
               <div>
