@@ -10,12 +10,6 @@ import Button from "../../components/shared/button/Button";
 const Register = () => {
   //handle form logic
   const navigate = useNavigate();
-  const [signUpData, setSignUpData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -67,7 +61,6 @@ const Register = () => {
                 <Input
                   id="full-name"
                   name="fullName"
-                  value={signUpData.fullName}
                   type="text"
                   required
                   placeholder="Full Name"
@@ -79,7 +72,6 @@ const Register = () => {
                   id="email"
                   name="email"
                   type="email"
-                  value={signUpData.email}
                   autoComplete="email"
                   required
                   placeholder="Email address"
@@ -91,7 +83,6 @@ const Register = () => {
                   id="password"
                   name="password"
                   type="password"
-                  value={signUpData.password}
                   autoComplete="current-password"
                   required
                   placeholder="Password"
@@ -103,13 +94,11 @@ const Register = () => {
                   id="confirm-password"
                   name="confirmPassword"
                   type="password"
-                  value={signUpData.confirmPassword}
                   autoComplete="new-password"
                   required
                   placeholder="Confirm Password"
                 />
               </div>
-
               <div>
                 <Button text="Signup" type="submit" width="w-full" />
               </div>

@@ -9,10 +9,6 @@ import Button from "../../components/shared/button/Button";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const [signindata, setSignInData] = useState({
-    email: "",
-    password: "",
-  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -37,7 +33,6 @@ const Signin = () => {
                   id="email"
                   name="email"
                   type="email"
-                  value={signindata.email}
                   autoComplete="email"
                   required
                   placeholder="Email address"
@@ -49,7 +44,6 @@ const Signin = () => {
                   id="password"
                   name="password"
                   type="password"
-                  value={signindata.password}
                   autoComplete="current-password"
                   required
                   placeholder="Password"
