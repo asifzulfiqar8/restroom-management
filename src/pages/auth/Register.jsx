@@ -8,8 +8,7 @@ import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";
 
 const Register = () => {
-  //handle form logic
-  const navigate = useNavigate();
+const [formData, setFormData] = useState({fullName:'',email:'',password:'',confirmPassword:''});
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
