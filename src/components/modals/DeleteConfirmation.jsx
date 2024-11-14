@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { deleteSensor } from "../../service/sensorService";
 import Button from "../shared/button/Button";
 
 const DeleteConfirmation = ({ onClose, message, selectedSensor, refetch }) => {

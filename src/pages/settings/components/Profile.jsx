@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import profileImage from "../../../assets/profile.svg";
-// import { useCreateUserProfileMutation, useGetUserProfileQuery, useGetUserQuery } from "../../../redux/api/userApi";
 import {
   Dialog,
   DialogBackdrop,
@@ -9,10 +8,6 @@ import {
 } from "@headlessui/react";
 import moment from "moment";
 import { toast } from "react-toastify";
-import {
-  editUserProfile,
-  fetchUserProfile,
-} from "../../../service/authService";
 import Button from "../../../components/shared/button/Button";
 import Input from "../../../components/shared/input/Input";
 import Modal from "../../../components/modals/Modal";

@@ -194,7 +194,6 @@ import LineChart from "../../components/charts/areaChart/LineChart";
 import { RiEdit2Fill, RiDeleteBin6Fill } from "react-icons/ri";
 import EditSensor from "./EditSensor";
 import Modal from "../../components/modals/Modal";
-import { getSensorById, deleteSensor } from "../../service/sensorService";
 
 const ViewSensor = () => {
   const [sensorData, setSensorData] = useState(null);

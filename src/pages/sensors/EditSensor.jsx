@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { updateSensor } from "../../service/sensorService";
 import { toast } from "react-toastify";
 import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";

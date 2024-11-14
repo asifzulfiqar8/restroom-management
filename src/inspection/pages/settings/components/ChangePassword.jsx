@@ -2,7 +2,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import Input from "../../../../components/shared/input/Input";
 import Button from "../../../../components/shared/button/Button";
-import { changePassword } from "../../../../service/authService";
 
 const ChangePassword = () => {
   const [passwordData, setPasswordData] = useState({

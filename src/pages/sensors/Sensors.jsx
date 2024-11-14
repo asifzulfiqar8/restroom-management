@@ -9,9 +9,7 @@ import { FiPlus } from "react-icons/fi";
 import EditSensor from "./EditSensor";
 import { Link } from "react-router-dom";
 import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
-import { getAllSensors } from "../../service/sensorService";
 import { toast } from "react-toastify";
-import { updateSensor } from "../../service/sensorService";
 import { sensorData } from "./sensor";
 
 const columns = (modalOpenHandler, handleStatusToggle) => [

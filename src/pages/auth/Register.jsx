@@ -1,12 +1,11 @@
 import { useState } from "react";
-import signinImage from "../assets/images/auth/signin.svg";
-import logo from "../assets/images/auth/logo.svg";
-import blurImage from "../assets/images/auth/bluer.svg";
+import signinImage from "../../assets/images/auth/signin.svg";
+import logo from "../../assets/images/auth/logo.svg";
+import blurImage from "../../assets/images/auth/bluer.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { SignUp } from "../service/authService";
-import Input from "../components/shared/input/Input";
-import Button from "../components/shared/button/Button";
+import Input from "../../components/shared/input/Input";
+import Button from "../../components/shared/button/Button";
 
 const Register = () => {
   //handle form logic
@@ -17,40 +16,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
-  const handleSignUpChange = (e) => {
-    const { name, value } = e.target;
-    setSignUpData({ ...signUpData, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    console.log("Form submission");
-    e.preventDefault();
-
-    const { password, confirmPassword, ...payload } = signUpData;
-
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-
-    try {
-      const response = await SignUp({ ...payload, password });
-      console.log("Response:", response);
-      toast.success(response?.message);
-
-      setSignUpData({
-        fullName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-      navigate("/");
-    } catch (error) {
-      const errorMsg = error.message || "An error occurred during signup.";
-      toast.error(errorMsg);
-    }
-  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -97,12 +62,11 @@ const Register = () => {
           </p>
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-4">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6">
               <div>
                 <Input
                   id="full-name"
                   name="fullName"
-                  onChange={handleSignUpChange}
                   value={signUpData.fullName}
                   type="text"
                   required
@@ -115,7 +79,6 @@ const Register = () => {
                   id="email"
                   name="email"
                   type="email"
-                  onChange={handleSignUpChange}
                   value={signUpData.email}
                   autoComplete="email"
                   required
@@ -128,7 +91,6 @@ const Register = () => {
                   id="password"
                   name="password"
                   type="password"
-                  onChange={handleSignUpChange}
                   value={signUpData.password}
                   autoComplete="current-password"
                   required
@@ -141,7 +103,6 @@ const Register = () => {
                   id="confirm-password"
                   name="confirmPassword"
                   type="password"
-                  onChange={handleSignUpChange}
                   value={signUpData.confirmPassword}
                   autoComplete="new-password"
                   required
@@ -157,7 +118,7 @@ const Register = () => {
                 <p className="text-center text-lg text-gray-600">
                   have an account?{" "}
                   <Link
-                    to="/login"
+                    to="/"
                     className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                   >
                     Signin

@@ -11,7 +11,7 @@ import EditBuilding from "./pages/dashboard/components/buildingFloors/EditBuildi
 import Dashboard from "./pages/dashboard/components/dashboard";
 import Floor from "./pages/dashboard/components/floors.jsx";
 import Plans from "./pages/plans/Plans.jsx";
-import Register from "./pages/Register.jsx";
+import Register from "./pages/auth/Register.jsx";
 import InspectorReporting from "./pages/reporting/InspectorReporting.jsx";
 import UserReporting from "./pages/reporting/UserReporting.jsx";
 import Sensors from "./pages/sensors/Sensors";
@@ -19,7 +19,7 @@ import ViewSensor from "./pages/sensors/ViewSensor.jsx";
 import ChangePassword from "./pages/settings/components/ChangePassword.jsx";
 import Subscription from "./pages/settings/components/Subscription.jsx";
 import Settings from "./pages/settings/Settings";
-import Signin from "./pages/Signin.jsx";
+import Signin from "./pages/auth/Signin.jsx";
 import Home from "./components/layout/index.jsx";
 import InspectionHome from "./inspection/layout/index.jsx";
 import InspectionDashboard from "./inspection/pages/dashboard/InspectionDashboard.jsx";

@@ -1,49 +1,18 @@
 import { useState } from "react";
-import signinImage from "../assets/images/auth/login.svg";
-import logo from "../assets/images/auth/logo.svg";
-import blurImage from "../assets/images/auth/bluer.svg";
+import signinImage from "../../assets/images/auth/login.svg";
+import logo from "../../assets/images/auth/logo.svg";
+import blurImage from "../../assets/images/auth/bluer.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchUserProfile, SignIn } from "../service/authService";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { setProfile } from "../redux/reducers/authSlice";
-import Input from "../components/shared/input/Input";
-import Button from "../components/shared/button/Button";
+import Input from "../../components/shared/input/Input";
+import Button from "../../components/shared/button/Button";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [signindata, setSignInData] = useState({
     email: "",
     password: "",
   });
-
-  const handleSignInChange = (e) => {
-    const { name, value } = e.target;
-    setSignInData({ ...signindata, [name]: value });
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await SignIn(signindata);
-
-      toast.success(response?.message);
-      setSignInData({
-        email: "",
-        password: "",
-      });
-
-      const userProfile = await fetchUserProfile();
-      if (userProfile) {
-        dispatch(setProfile(userProfile));
-      }
-
-      console.log(navigate("/home"));
-    } catch (error) {
-      const errorMsg = error.message;
-      toast.error(errorMsg);
-    }
-  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -62,13 +31,12 @@ const Signin = () => {
           </p>
 
           <div className="sm:mx-auto sm:w-full sm:max-w-sm mt-4">
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6">
               <div>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  onChange={handleSignInChange}
                   value={signindata.email}
                   autoComplete="email"
                   required
@@ -81,7 +49,6 @@ const Signin = () => {
                   id="password"
                   name="password"
                   type="password"
-                  onChange={handleSignInChange}
                   value={signindata.password}
                   autoComplete="current-password"
                   required

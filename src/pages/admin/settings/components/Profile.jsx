@@ -9,10 +9,6 @@ import {
 } from "@headlessui/react";
 import moment from "moment";
 import { toast } from "react-toastify";
-import {
-  editUserProfile,
-  fetchUserProfile,
-} from "../../../../service/authService";
 import Button from "../../../../components/shared/button/Button";
 import Input from "../../../../components/shared/input/Input";
 import Modal from "../../../../components/modals/Modal";

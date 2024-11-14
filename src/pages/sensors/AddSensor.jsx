@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { addSensor } from "../../service/sensorService";
 import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";
 
