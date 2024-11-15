@@ -9,28 +9,28 @@ export const pages = [
   {
     title: "Dashboard",
     icon: <DashboardIcon />,
-    link: "/home/dashboard",
+    link: "/dashboard",
   },
   {
     title: "Buildings",
-    link: "/home/building",
+    link: "/building",
     icon: <BuildingIcon />,
   },
 
   {
     title: "Sensors",
-    link: "/home/sensor",
+    link: "/sensor",
     icon: <SensorIcon />,
   },
 
   {
     title: "Reports",
-    link: "/home/reports",
+    link: "/reports",
     icon: <ReportIcon />,
   },
   {
     title: "Plans",
-    link: "/home/plan",
+    link: "/plan",
     icon: <PlanIcon />,
   },
 
@@ -40,20 +40,20 @@ export const pages = [
     subPages: [
       {
         title: "Profile",
-        link: "/home/setting",
+        link: "/setting",
       },
       {
         title: "Subscriptions",
-        link: "/home/subscription",
+        link: "/subscription",
       },
 
       {
         title: "Change Password",
-        link: "/home/change-password",
+        link: "/change-password",
       },
       {
         title: "Configuration",
-        link: "/home/configuration",
+        link: "/configuration",
       },
     ],
   },
