@@ -8,7 +8,7 @@ import store from "./redux/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter } from "react-router-dom";
-
+import "./index.css";
 createRoot(document.getElementById("root")).render(
   <>
     <ToastContainer />

@@ -1,107 +1,142 @@
 /* eslint-disable react/no-children-prop */
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import AreaChart from "./components/charts/areaChart/AreaChart";
-import Cancel from "./components/shared/plans/components/Cancel.jsx";
-import Success from "./components/shared/plans/components/Success.jsx";
-import AllRestRooms from "./pages/buildings/allRestRooms/AllRestRooms.jsx";
-import Buildings from "./pages/buildings/Buildings";
-import AdminDashboard from "./pages/dashboard/AdminDashboard.jsx";
-import BuildingFloors from "./pages/dashboard/components/buildingFloors";
-import AllFloorList from "./pages/dashboard/components/buildingFloors/AllFloorList.jsx";
-import EditBuilding from "./pages/dashboard/components/buildingFloors/EditBuilding.jsx";
-import Dashboard from "./pages/dashboard/components/dashboard";
-import Floor from "./pages/dashboard/components/floors.jsx";
-import Plans from "./pages/plans/Plans.jsx";
-import Register from "./pages/auth/Register.jsx";
-import InspectorReporting from "./pages/reporting/InspectorReporting.jsx";
-import UserReporting from "./pages/reporting/UserReporting.jsx";
-import Sensors from "./pages/sensors/Sensors";
-import ViewSensor from "./pages/sensors/ViewSensor.jsx";
-import ChangePassword from "./pages/settings/components/ChangePassword.jsx";
-import Subscription from "./pages/settings/components/Subscription.jsx";
-import Settings from "./pages/settings/Settings";
-import Signin from "./pages/auth/Signin.jsx";
-import Home from "./components/layout/index.jsx";
-import InspectionHome from "./inspection/layout/index.jsx";
-import InspectionDashboard from "./inspection/pages/dashboard/InspectionDashboard.jsx";
-import InspectionProfile from "./inspection/pages/settings/components/Profile.jsx";
-import InspectionChangePassword from "./inspection/pages/settings/components/ChangePassword.jsx";
-import Inspections from "./inspection/pages/inspection/Inspections.jsx";
-import Configuration from "./pages/settings/Configuration.jsx";
-import ReportsList from "./pages/downloadReport/ReportsList.jsx";
-import Reports from "./pages/downloadReport/Reports.jsx";
-import Admin from "./pages/admin/layout/index.jsx";
-import AdminProfile from "./pages/admin/settings/components/Profile.jsx";
-import AdminChangePassword from "./pages/admin/settings/components/ChangePassword.jsx";
-import AddBuildingStepper from './pages/buildings/addBuildingStepper/AddBuildingStepper.jsx'
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
 import { useGetMyProfileQuery } from "./services/auth/authApi.js";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loginSuccess, logout } from "./services/auth/authSlice.js";
+import Loader from "./components/shared/Loader.jsx";
+
+// Lazy-loaded components
+const AllRestRooms = lazy(() =>
+  import("./pages/buildings/allRestRooms/AllRestRooms.jsx")
+);
+const Buildings = lazy(() => import("./pages/buildings/Buildings"));
+const AdminDashboard = lazy(() =>
+  import("./pages/dashboard/AdminDashboard.jsx")
+);
+const BuildingFloors = lazy(() =>
+  import("./pages/dashboard/components/buildingFloors")
+);
+const AllFloorList = lazy(() =>
+  import("./pages/dashboard/components/buildingFloors/AllFloorList.jsx")
+);
+const EditBuilding = lazy(() =>
+  import("./pages/dashboard/components/buildingFloors/EditBuilding.jsx")
+);
+const Dashboard = lazy(() => import("./pages/dashboard/components/dashboard"));
+const Floor = lazy(() => import("./pages/dashboard/components/floors.jsx"));
+const Plans = lazy(() => import("./pages/plans/Plans.jsx"));
+const Register = lazy(() => import("./pages/auth/Register.jsx"));
+const InspectorReporting = lazy(() =>
+  import("./pages/reporting/InspectorReporting.jsx")
+);
+const UserReporting = lazy(() => import("./pages/reporting/UserReporting.jsx"));
+const Sensors = lazy(() => import("./pages/sensors/Sensors"));
+const ViewSensor = lazy(() => import("./pages/sensors/ViewSensor.jsx"));
+const ChangePassword = lazy(() =>
+  import("./pages/settings/components/ChangePassword.jsx")
+);
+const Subscription = lazy(() =>
+  import("./pages/settings/components/Subscription.jsx")
+);
+const Settings = lazy(() => import("./pages/settings/Settings"));
+const Signin = lazy(() => import("./pages/auth/Signin.jsx"));
+const Home = lazy(() => import("./components/layout/index.jsx"));
+const InspectionHome = lazy(() => import("./inspection/layout/index.jsx"));
+const InspectionDashboard = lazy(() =>
+  import("./inspection/pages/dashboard/InspectionDashboard.jsx")
+);
+const InspectionProfile = lazy(() =>
+  import("./inspection/pages/settings/components/Profile.jsx")
+);
+const InspectionChangePassword = lazy(() =>
+  import("./inspection/pages/settings/components/ChangePassword.jsx")
+);
+const Inspections = lazy(() =>
+  import("./inspection/pages/inspection/Inspections.jsx")
+);
+const Configuration = lazy(() => import("./pages/settings/Configuration.jsx"));
+const ReportsList = lazy(() =>
+  import("./pages/downloadReport/ReportsList.jsx")
+);
+const Reports = lazy(() => import("./pages/downloadReport/Reports.jsx"));
+const Admin = lazy(() => import("./pages/admin/layout/index.jsx"));
+const AdminProfile = lazy(() =>
+  import("./pages/admin/settings/components/Profile.jsx")
+);
+const AdminChangePassword = lazy(() =>
+  import("./pages/admin/settings/components/ChangePassword.jsx")
+);
+const AddBuildingStepper = lazy(() =>
+  import("./pages/buildings/addBuildingStepper/AddBuildingStepper.jsx")
+);
+const ProtectedRoute = lazy(() => import("./components/ProtectedRoute.jsx"));
 
 const App = () => {
-  const dispatch = useDispatch()
-  const {data, error, isLoading} = useGetMyProfileQuery();
+  const dispatch = useDispatch();
+  const { data, error, isLoading } = useGetMyProfileQuery();
 
   useEffect(() => {
     if (data && data?.success) {
-        dispatch(loginSuccess(data?.data));
-        console.log('User authenticated');
+      dispatch(loginSuccess(data?.data));
+      console.log("User authenticated");
     } else if (error) {
-        dispatch(logout());
+      dispatch(logout());
     }
-}, [data, error, dispatch]);
+  }, [data, error, dispatch]);
 
-
-  if (isLoading) return <div>Loading...</div>
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route path="/login" element={<Signin />} />
-      <Route path="/register" element={<Register />} />
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/login" element={<Signin />} />
+        <Route path="/register" element={<Register />} />
 
-      {/* Main application routes */}
-      <Route path="/" element={<ProtectedRoute children={<Home />} />}>
-        <Route index element={<Navigate replace to="dashboard" />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="building-floor" element={<BuildingFloors />} />
-        <Route path="update-building/:id" element={<EditBuilding />} />
-        <Route path="floor/:buildingId/:floorId" element={<Floor />} />
-        <Route path="building" element={<Buildings />} />
-        <Route path="add-building" element={<AddBuildingStepper />} />
-        <Route path="sensor" element={<Sensors />} />
-        <Route path="view-sensor" element={<ViewSensor />} />
-        <Route path="setting" element={<Settings />} />
-        <Route path="reporting" element={<UserReporting />} />
-        <Route path="plan" element={<Plans />} />
-        <Route path="change-password" element={<ChangePassword />} />
-        <Route path="subscription" element={<Subscription />} />
-        <Route path="admin-dashboard" element={<AdminDashboard />} />
-        <Route path="all-floors" element={<AllFloorList />} />
-        <Route path="configuration" element={<Configuration />} />
-        <Route path="reports" element={<Reports />} />
-      </Route>
+        {/* Main application routes */}
+        <Route path="/" element={<ProtectedRoute children={<Home />} />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="building-floor" element={<BuildingFloors />} />
+          <Route path="update-building/:id" element={<EditBuilding />} />
+          <Route path="floor/:buildingId/:floorId" element={<Floor />} />
+          <Route path="building" element={<Buildings />} />
+          <Route path="add-building" element={<AddBuildingStepper />} />
+          <Route path="sensor" element={<Sensors />} />
+          <Route path="view-sensor" element={<ViewSensor />} />
+          <Route path="setting" element={<Settings />} />
+          <Route path="reporting" element={<UserReporting />} />
+          <Route path="plan" element={<Plans />} />
+          <Route path="change-password" element={<ChangePassword />} />
+          <Route path="subscription" element={<Subscription />} />
+          <Route path="admin-dashboard" element={<AdminDashboard />} />
+          <Route path="all-floors" element={<AllFloorList />} />
+          <Route path="configuration" element={<Configuration />} />
+          <Route path="reports" element={<Reports />} />
+        </Route>
 
-      <Route path="/inspection" element={<InspectionHome />}>
-        <Route index element={<Navigate replace to="dashboard" />} />
-        <Route path="dashboard" element={<InspectionDashboard />} />
-        <Route path="history" element={<InspectorReporting />} />
-        <Route path="all-inspections" element={<Inspections />} />
-        <Route path="all-restrooms" element={<AllRestRooms />} />
-        <Route path="profile" element={<InspectionProfile />} />
-        <Route path="change-password" element={<InspectionChangePassword />} />
-      </Route>
-      <Route path="/admin" element={<Admin />}>
-        <Route index element={<Navigate replace to="dashboard" />} />
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="profile" element={<AdminProfile />} />
-        <Route path="change-password" element={<AdminChangePassword />} />
-      </Route>
+        <Route path="/inspection" element={<InspectionHome />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<InspectionDashboard />} />
+          <Route path="history" element={<InspectorReporting />} />
+          <Route path="all-inspections" element={<Inspections />} />
+          <Route path="all-restrooms" element={<AllRestRooms />} />
+          <Route path="profile" element={<InspectionProfile />} />
+          <Route
+            path="change-password"
+            element={<InspectionChangePassword />}
+          />
+        </Route>
+        <Route path="/admin" element={<Admin />}>
+          <Route index element={<Navigate replace to="dashboard" />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="profile" element={<AdminProfile />} />
+          <Route path="change-password" element={<AdminChangePassword />} />
+        </Route>
 
-      {/* Redirect all other routes to /home */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+        {/* Redirect all other routes to / */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Suspense>
   );
 };
 
