@@ -34,13 +34,13 @@ const Buildings = () => {
     <div className="bg-white rounded-2xl shadow-md border-[1px] p-5">
       <div className="mb-4 flex justify-between items-center">
         <h4 className="text-[20px] font-[600] leading-[32px]">All Buildings</h4>
-        <Link to="/home/add-building">
+        <Link to="/add-building">
           <FaPlus className="text-blue-500 hover:text-blue-600 text-2xl" />
         </Link>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-3 ">
         {buildingCardData.map((id, building) => (
-          <Link to={`/home/buildings/building`} key={id}>
+          <Link to={`/buildings/building`} key={id}>
             <BuildingCard data={building} />
           </Link>
         ))}

@@ -93,7 +93,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         {/* Main application routes */}
-        <Route path="/" element={<ProtectedRoute children={<Home />} />}>
+        <Route path="/" element={<Home />}>
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="building-floor" element={<BuildingFloors />} />
