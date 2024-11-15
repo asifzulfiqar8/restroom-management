@@ -24,7 +24,7 @@ const Signin = () => {
     try {
       const response = await login(formData).unwrap();
       const user = response.data;
-      console.log('user', response)
+      // console.log('user', response)
       dispatch(loginSuccess(user))
       setTimeout(() => {
         toast.success(`Welcome ${user.fullName}`);

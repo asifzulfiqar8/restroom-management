@@ -36,10 +36,25 @@ import AdminChangePassword from "./pages/admin/settings/components/ChangePasswor
 import AddBuildingStepper from './pages/buildings/addBuildingStepper/AddBuildingStepper.jsx'
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { useGetMyProfileQuery } from "./services/auth/authApi.js";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess, logout } from "./services/auth/authSlice.js";
 
 const App = () => {
+  const dispatch = useDispatch()
   const {data, error, isLoading} = useGetMyProfileQuery();
-  console.log('data', data)
+
+  useEffect(() => {
+    if (data && data?.success) {
+        dispatch(loginSuccess(data?.data));
+        console.log('User authenticated');
+    } else if (error) {
+        dispatch(logout());
+    }
+}, [data, error, dispatch]);
+
+
+  if (isLoading) return <div>Loading...</div>
   return (
     <Routes>
       {/* Public Routes */}
@@ -47,7 +62,7 @@ const App = () => {
       <Route path="/register" element={<Register />} />
 
       {/* Main application routes */}
-      <Route path="/" element={<Home />}>
+      <Route path="/" element={<ProtectedRoute children={<Home />} />}>
         <Route index element={<Navigate replace to="dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="building-floor" element={<BuildingFloors />} />
