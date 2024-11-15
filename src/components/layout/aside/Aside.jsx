@@ -13,11 +13,9 @@ const Aside = () => {
   const url = location?.pathname;
 
   const asideToggleHandler = () => {
-    console.log("clicked");
     setAside(!aside);
   };
 
-  console.log("url", location);
 
   useEffect(() => {
     pages.forEach((page) => {

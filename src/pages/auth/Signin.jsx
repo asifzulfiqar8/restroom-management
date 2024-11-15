@@ -22,10 +22,14 @@ const Signin = () => {
     e.preventDefault();
 
     try {
-      const {user, token} = await login(formData).unwrap();
-      dispatch(loginSuccess(user, token))
-      localStorage.setItem('token', token);
-      navigate('/home')
+      const response = await login(formData).unwrap();
+      const user = response.data;
+      console.log('user', response)
+      dispatch(loginSuccess(user))
+      setTimeout(() => {
+        toast.success(`Welcome ${user.fullName}`);
+        navigate('/');
+      }, 1000);
     } catch (error) {
       toast.error('Invalid credentials or server error')
     }

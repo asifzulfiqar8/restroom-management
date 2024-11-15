@@ -3,7 +3,7 @@ import getEnv from '../../config/config';
 
 const authApi = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({baseUrl: `${getEnv('SERVER_URL')}/api/auth`}),
+    baseQuery: fetchBaseQuery({baseUrl: `${getEnv('SERVER_URL')}/api/auth`, credentials: 'include'}),
     endpoints: (builder) => ({
         // sign up
         signup: builder.mutation({
@@ -20,9 +20,16 @@ const authApi = createApi({
                 method: 'POST',
                 body: credentials,
             })
+        }),
+        // get profile
+        getMyProfile: builder.query({
+            query: () => ({
+                url: '/my-profile',
+                method: 'GET'
+            })
         })
     })
 })
 
-export const {useSignupMutation,useLoginMutation} = authApi;
+export const {useSignupMutation,useLoginMutation,useGetMyProfileQuery} = authApi;
 export default authApi;

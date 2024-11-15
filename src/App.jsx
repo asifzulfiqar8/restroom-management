@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AreaChart from "./components/charts/areaChart/AreaChart";
 import Cancel from "./components/shared/plans/components/Cancel.jsx";
@@ -33,16 +34,20 @@ import Admin from "./pages/admin/layout/index.jsx";
 import AdminProfile from "./pages/admin/settings/components/Profile.jsx";
 import AdminChangePassword from "./pages/admin/settings/components/ChangePassword.jsx";
 import AddBuildingStepper from './pages/buildings/addBuildingStepper/AddBuildingStepper.jsx'
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import { useGetMyProfileQuery } from "./services/auth/authApi.js";
 
 const App = () => {
+  const {data, error, isLoading} = useGetMyProfileQuery();
+  console.log('data', data)
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={<Signin />} />
+      <Route path="/login" element={<Signin />} />
       <Route path="/register" element={<Register />} />
 
       {/* Main application routes */}
-      <Route path="/home" element={<Home />}>
+      <Route path="/" element={<Home />}>
         <Route index element={<Navigate replace to="dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="building-floor" element={<BuildingFloors />} />
@@ -80,7 +85,7 @@ const App = () => {
       </Route>
 
       {/* Redirect all other routes to /home */}
-      <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
