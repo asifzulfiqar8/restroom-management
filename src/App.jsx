@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import { Route, Routes, Navigate } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
-import { useGetMyProfileQuery } from "./services/auth/authApi.js";
-import { useDispatch } from "react-redux";
-import { loginSuccess, logout } from "./services/auth/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "./components/shared/Loader.jsx";
+import { useGetMyProfileQuery } from "./services/auth/authApi.js";
+import { userExist, userNotExist } from "./services/auth/authSlice.js";
 
 // Lazy-loaded components
 const AllRestRooms = lazy(() =>
@@ -75,25 +75,26 @@ const ProtectedRoute = lazy(() => import("./components/ProtectedRoute.jsx"));
 const App = () => {
   const dispatch = useDispatch();
   const { data, error, isLoading } = useGetMyProfileQuery();
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (data && data?.success) {
-      dispatch(loginSuccess(data?.data));
-      console.log("User authenticated");
-    } else if (error) {
-      dispatch(logout());
-    }
+    if (data && data?.data) dispatch(userExist(data?.data));
+    if (error) dispatch(userNotExist());
   }, [data, error, dispatch]);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <Suspense fallback={<Loader />}>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={<Signin />} />
+        <Route path="/login" element={<ProtectedRoute user={!user} redirect="/">
+          <Signin />
+        </ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
 
         {/* Main application routes */}
-        <Route path="/" element={<ProtectedRoute children={<Home />} />}>
+        <Route path="/" element={<Home />}>
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="building-floor" element={<BuildingFloors />} />

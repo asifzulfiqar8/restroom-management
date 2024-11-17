@@ -8,32 +8,34 @@ import Input from "../../components/shared/input/Input";
 import Button from "../../components/shared/button/Button";
 import { useLoginMutation } from "../../services/auth/authApi";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../../services/auth/authSlice";
+import { userExist } from "../../services/auth/authSlice";
 
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [login, {isLoading}] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation();
 
-  const formDataHandler = (e) => setFormData({...formData, [e.target.name]: e.target.value})
+  const formDataHandler = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await login(formData).unwrap();
-      const user = response.data;
-      // console.log('user', response)
-      dispatch(loginSuccess(user))
-      setTimeout(() => {
-        toast.success(`Welcome ${user.fullName}`);
-        navigate('/');
-      }, 1000);
+      if (!formData?.email && !formData?.password)
+        return toast.error("Please write email and password");
+      const res = await login(formData).unwrap();
+      console.log('res', res)
+      if (!res?.success && !res?.data)
+        throw new Error("Error occurred while logging in");
+      dispatch(userExist(res?.data))
+      toast.success(`Welcome ${res?.data.fullName}`)
+      return navigate("/");
     } catch (error) {
-      toast.error('Invalid credentials or server error')
+      toast.error(error?.data?.message || 'Error occurred while logging in')
     }
-  }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 min-h-screen">
@@ -78,7 +80,12 @@ const Signin = () => {
               </div>
 
               <div>
-                <Button disabled={isLoading} text={isLoading ? 'Logging in...':'Log In'} type="submit" width="w-full" />
+                <Button
+                  disabled={isLoading}
+                  text={isLoading ? "Logging in..." : "Log In"}
+                  type="submit"
+                  width="w-full"
+                />
               </div>
 
               <div>
