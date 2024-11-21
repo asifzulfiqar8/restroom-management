@@ -5,11 +5,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowForward, IoIosLogOut } from "react-icons/io";
 import Notifications from "./Notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { userNotExist } from "../../../services/auth/authSlice";
+import { useLogoutMutation } from "../../../services/auth/authApi";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [profileActive, setProfileActive] = useState(false);
-
+  const dispatch = useDispatch()
+  const {user} = useSelector((state) => state?.auth)
+  const [logout] = useLogoutMutation();
   const navigate = useNavigate();
+  console.log('user', user)
 
   const [notificationActive, setNotificationActive] = useState(false);
   const notificationRef = useRef();
@@ -22,6 +29,19 @@ const Header = () => {
     setNotificationActive(!notificationActive);
     setProfileActive(false);
   };
+
+  const logoutHandler = async () => {
+    try {
+      const res = await logout().unwrap();
+      if(res?.success) {
+        dispatch(userNotExist())
+        toast.success(res?.message);
+        navigate('/login')
+      }
+    } catch (error) {
+      toast.error(error)
+    }
+  }
 
   return (
     <section
@@ -75,7 +95,7 @@ const Header = () => {
             Profile
             <IoIosArrowForward />
           </Link>
-          <div className="flex items-center justify-between px-3 py-2 cursor-pointer">
+          <div className="flex items-center justify-between px-3 py-2 cursor-pointer" onClick={logoutHandler}>
             Logout
             <IoIosLogOut />
           </div>

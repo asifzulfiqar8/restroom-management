@@ -27,9 +27,16 @@ const authApi = createApi({
                 url: '/my-profile',
                 method: 'GET'
             })
+        }),
+        // logout
+        logout: builder.mutation({
+            query: () => ({
+                url: '/logout',
+                method: 'GET'
+            })
         })
     })
 })
 
-export const {useSignupMutation,useLoginMutation,useGetMyProfileQuery} = authApi;
+export const {useSignupMutation,useLoginMutation,useGetMyProfileQuery,useLogoutMutation} = authApi;
 export default authApi;
