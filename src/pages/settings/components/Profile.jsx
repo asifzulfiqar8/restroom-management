@@ -1,42 +1,33 @@
-import { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import profileImage from "../../../assets/profile.svg";
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
-import moment from "moment";
-import { toast } from "react-toastify";
+import Modal from "../../../components/modals/Modal";
 import Button from "../../../components/shared/button/Button";
 import Input from "../../../components/shared/input/Input";
-import Modal from "../../../components/modals/Modal";
 import Dropdown from "../../../components/shared/dropdown/Dropdown";
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState({});
-  const [profilePic, setProfilePic] = useState("");
-  const [file, setFile] = useState(null);
 
-  const {
+  // Static user profile data
+  const [userProfile, setUserProfile] = useState({
     profileImage,
-    fullName,
-    email,
-    phoneNumber,
-    dob,
-    nationality,
-    gender,
-  } = userProfile || {};
+    fullName: "John Doe",
+    email: "johndoe@example.com",
+    phoneNumber: "1234567890",
+    dob: "1990-01-01",
+    nationality: "American",
+    gender: "Male",
+  });
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const previewUrl = URL.createObjectURL(selectedFile);
-      setProfilePic(previewUrl);
-      setFile(selectedFile);
-    }
+  const handleEdit = (updatedProfile) => {
+    setUserProfile(updatedProfile);
+    setOpen(false);
   };
+
+  const { fullName, email, phoneNumber, dob, nationality, gender } =
+    userProfile;
 
   return (
     <>
@@ -52,7 +43,6 @@ const Profile = () => {
             src={profileImage}
             alt="Profile"
             className="cursor-pointer w-24 h-24 object-cover rounded-full"
-            // onClick={() => document.getElementById("fileInput").click()}
           />
           <div className="text-center lg:text-left">
             <h3 className="text-lg font-semibold">{fullName || "User Name"}</h3>
@@ -60,14 +50,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-
-      <input
-        type="file"
-        id="fileInput"
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-        accept="image/*"
-      />
 
       <div
         className="bg-white flex justify-between flex-col lg:flex-row items-start rounded-[15px] mt-4 p-4 gap-4 border-[1px] border-[#00000025]"
@@ -83,13 +65,7 @@ const Profile = () => {
             placeholder="Phone number"
             value={phoneNumber || ""}
           />
-          <Input
-            type="text"
-            placeholder="Date of Birth"
-            name="dob"
-            value={dob ? moment(dob).format("YYYY-MM-DD") : ""}
-            readOnly
-          />
+          <Input type="text" placeholder="Date of Birth" value={dob} readOnly />
         </div>
       </div>
 
@@ -117,15 +93,20 @@ const Profile = () => {
       </div>
 
       <div className="flex justify-center lg:justify-end w-full mt-5">
-        <Button text="edit" onClick={() => setOpen(true)} />
+        <Button
+          text="edit"
+          width="md:w-[120px] w-full"
+          onClick={() => setOpen(true)}
+        />
       </div>
+
       {open && (
         <Modal
           onClose={() => setOpen(false)}
           title="Edit Profile"
           width="w-[320px] md:w-[450px]"
         >
-          <EditModal />
+          <EditModal userProfile={userProfile} onEdit={handleEdit} />
         </Modal>
       )}
     </>
@@ -134,111 +115,85 @@ const Profile = () => {
 
 export default Profile;
 
-const EditModal = () => {
-  const [userProfile, setUserProfile] = useState({});
-  const [profilePic, setProfilePic] = useState("");
+const EditModal = ({ userProfile, onEdit }) => {
+  const [profilePic, setProfilePic] = useState(userProfile.profileImage);
   const [file, setFile] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [formState, setFormState] = useState(userProfile);
 
-  const getUserProfile = async () => {
-    try {
-      const profileData = await fetchUserProfile();
-      if (profileData) {
-        setUserProfile(profileData);
-        if (profileData.profilePic) {
-          setProfilePic(profileData.profilePic);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      toast.error("Failed to load user profile.");
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setProfilePic(previewUrl);
+      setFile(selectedFile);
     }
   };
 
-  useEffect(() => {
-    getUserProfile();
-  }, []);
-  const {
-    profileImage,
-    fullName,
-    email,
-    phoneNumber,
-    dob,
-    nationality,
-    gender,
-  } = userProfile || {};
-  const handleSubmit = async (event) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({ ...formState, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target);
-    if (file) {
-      formData.append("profilePic", file);
-    }
-
-    formData.append("phoneNumber", phoneNumber);
-    formData.append("dob", dob);
-    formData.append("gender", gender);
-    formData.append("nationality", nationality);
-
-    try {
-      const updatedProfile = await editUserProfile(formData);
-      if (updatedProfile) {
-        toast.success("Profile updated successfully!");
-        setUserProfile(updatedProfile);
-        getUserProfile();
-        setOpen(false);
-      } else {
-        throw new Error("Failed to update profile.");
-      }
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-      toast.error("Failed to update user profile.");
-    }
+    onEdit({ ...formState, profileImage: profilePic });
   };
-  return (
-    <div>
-      <div className="sm:flex sm:items-start">
-        <div className="w-full">
-          <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
-            <div className="mx-auto">
-              <img
-                src={profileImage}
-                alt="Profile"
-                className="cursor-pointer w-24 h-24 object-cover  rounded-full"
-                onClick={() => document.getElementById("fileInput").click()}
-              />
-            </div>
-            <Input
-              type="number"
-              placeholder="Enter phone number"
-              name="phoneNumber"
-              defaultValue={phoneNumber || ""}
-            />
-            <Input
-              type="date"
-              name="dob"
-              defaultValue={dob ? moment(dob).format("YYYY-MM-DD") : ""}
-            />
-            <div className="grid grid-cols-1 gap-4 w-full">
-              <Dropdown
-                name="gender"
-                defaultValue={gender || ""}
-                options={[{ option: "male" }, { option: "Female" }]}
-              />
 
-              <Input
-                type="text"
-                placeholder="Nationality"
-                name="nationality"
-                defaultValue={nationality || ""}
-              />
-            </div>
-          </form>
-        </div>
+  const { fullName, phoneNumber, dob, nationality, gender } = formState;
+
+  return (
+    <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
+      <div className="mx-auto">
+        <img
+          src={profilePic}
+          alt="Profile"
+          className="cursor-pointer w-24 h-24 object-cover rounded-full"
+          onClick={() => document.getElementById("fileInput").click()}
+        />
+        <input
+          type="file"
+          id="fileInput"
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+          accept="image/*"
+        />
+      </div>
+      <Input
+        type="text"
+        placeholder="Enter full name"
+        name="fullName"
+        value={fullName}
+        onChange={handleChange}
+      />
+      <Input
+        type="number"
+        placeholder="Enter phone number"
+        name="phoneNumber"
+        value={phoneNumber}
+        onChange={handleChange}
+      />
+      <Input type="date" name="dob" value={dob} onChange={handleChange} />
+      <div className="grid grid-cols-1 gap-4 w-full">
+        <Dropdown
+          name="gender"
+          value={gender}
+          options={[
+            { option: "Male", value: "Male" },
+            { option: "Female", value: "Female" },
+          ]}
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          placeholder="Nationality"
+          name="nationality"
+          value={nationality}
+          onChange={handleChange}
+        />
       </div>
       <div className="mt-4">
         <Button text="update" width="w-full" />
       </div>
-    </div>
+    </form>
   );
 };
