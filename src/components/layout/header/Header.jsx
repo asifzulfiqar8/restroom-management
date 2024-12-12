@@ -12,11 +12,11 @@ import { toast } from "react-toastify";
 
 const Header = () => {
   const [profileActive, setProfileActive] = useState(false);
-  const dispatch = useDispatch()
-  const {user} = useSelector((state) => state?.auth)
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state?.auth);
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
-  console.log('user', user)
+  console.log("user", user);
 
   const [notificationActive, setNotificationActive] = useState(false);
   const notificationRef = useRef();
@@ -33,15 +33,15 @@ const Header = () => {
   const logoutHandler = async () => {
     try {
       const res = await logout().unwrap();
-      if(res?.success) {
-        dispatch(userNotExist())
+      if (res?.success) {
+        dispatch(userNotExist());
         toast.success(res?.message);
-        navigate('/login')
+        navigate("/login");
       }
     } catch (error) {
-      toast.error(error)
+      toast.error(error);
     }
-  }
+  };
 
   return (
     <section
@@ -92,10 +92,13 @@ const Header = () => {
             to={"/home/setting"}
             onClick={() => setProfileActive(false)}
           >
-            Profile
+            adm Profile
             <IoIosArrowForward />
           </Link>
-          <div className="flex items-center justify-between px-3 py-2 cursor-pointer" onClick={logoutHandler}>
+          <div
+            className="flex items-center justify-between px-3 py-2 cursor-pointer"
+            onClick={logoutHandler}
+          >
             Logout
             <IoIosLogOut />
           </div>

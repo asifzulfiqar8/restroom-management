@@ -50,6 +50,7 @@ const Header = () => {
             src={profilePic}
             alt="profile-pic"
             className="w-[40px] h-[40px] rounded-sm object-cover hidden md:inline-block"
+            onClick={toggleDropDown}
           />
           <div className="flex flex-col items-center">
             {/* <p className="flex items-center gap-2 text-base text-[white] text-[16px] leading-[20.36px] font-[500]">
@@ -71,7 +72,7 @@ const Header = () => {
             to={"/home/setting"}
             onClick={() => setProfileActive(false)}
           >
-            Profile
+            ins Profile
             <IoIosArrowForward />
           </Link>
           <div className="flex items-center justify-between px-3 py-2 cursor-pointer">

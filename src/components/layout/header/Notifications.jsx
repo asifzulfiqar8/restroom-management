@@ -21,7 +21,7 @@ const Notifications = () => {
   return (
     <div>
       <h3 className="text-base md:text-md text-primary font-semibold px-3 pt-3 pb-2 border-b sticky top-0 left-0 bg-white">
-        Notifications
+        home Notifications
       </h3>
       <div className="mt-1">
         {notificationLists.length > 0 ? (
