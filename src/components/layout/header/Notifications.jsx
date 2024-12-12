@@ -1,3 +1,5 @@
+// ============== HOME NOTIFICATION
+
 import React from "react";
 // import ProfilePic from "../../../assets/images/header/profilepic.webp";
 import { AiFillNotification } from "react-icons/ai";
@@ -21,7 +23,7 @@ const Notifications = () => {
   return (
     <div>
       <h3 className="text-base md:text-md text-primary font-semibold px-3 pt-3 pb-2 border-b sticky top-0 left-0 bg-white">
-        home Notifications
+        Notifications
       </h3>
       <div className="mt-1">
         {notificationLists.length > 0 ? (

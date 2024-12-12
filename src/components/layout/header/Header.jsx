@@ -1,3 +1,5 @@
+// ============== HOME HEADER
+
 import { FaChevronDown, FaRegBell } from "react-icons/fa";
 import profilePic from "../../../assets/images/header/profilePic.png";
 import { GoDotFill } from "react-icons/go";
@@ -92,7 +94,7 @@ const Header = () => {
             to={"/home/setting"}
             onClick={() => setProfileActive(false)}
           >
-            adm Profile
+            Profile
             <IoIosArrowForward />
           </Link>
           <div

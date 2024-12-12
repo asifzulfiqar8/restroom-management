@@ -1,3 +1,5 @@
+//  ==============ADMIN HEADER
+
 import { FaChevronDown, FaRegBell } from "react-icons/fa";
 import profilePic from "../../../../assets/images/header/profilePic.png";
 
@@ -73,7 +75,7 @@ const Header = () => {
             to={"/home/setting"}
             onClick={() => setProfileActive(false)}
           >
-            adm Profile
+            Profile
             <IoIosArrowForward />
           </Link>
           <div className="flex items-center justify-between px-3 py-2 cursor-pointer">
