@@ -1,7 +1,12 @@
 // ============== HOME HEADER
 
+<<<<<<< HEAD
 import { useRef, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
+=======
+import { FaChevronDown, FaRegBell } from "react-icons/fa";
+import profilePic from "../../../assets/images/header/profilePic.png";
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
 import { GoDotFill } from "react-icons/go";
 import { IoIosArrowForward, IoIosLogOut } from "react-icons/io";
 import { useDispatch } from "react-redux";
@@ -11,12 +16,25 @@ import profilePic from "../../../assets/images/header/profilePic.png";
 import { useLogoutMutation } from "../../../services/auth/authApi";
 import { userNotExist } from "../../../services/auth/authSlice";
 import Notifications from "./Notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { userNotExist } from "../../../services/auth/authSlice";
+import { useLogoutMutation } from "../../../services/auth/authApi";
+import { toast } from "react-toastify";
 
 const Header = () => {
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [profileActive, setProfileActive] = useState(false);
   const [logout, { isLoading }] = useLogoutMutation();
+=======
+  const [profileActive, setProfileActive] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state?.auth);
+  const [logout] = useLogoutMutation();
+  const navigate = useNavigate();
+  console.log("user", user);
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
 
   const [notificationActive, setNotificationActive] = useState(false);
   const notificationRef = useRef();
@@ -33,7 +51,11 @@ const Header = () => {
       if (res?.success) {
         dispatch(userNotExist());
         toast.success(res?.message);
+<<<<<<< HEAD
         return navigate("/login");
+=======
+        navigate("/login");
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
       }
     } catch (error) {
       toast.error(error);
@@ -77,9 +99,13 @@ const Header = () => {
             <IoIosArrowForward />
           </Link>
           <div
+<<<<<<< HEAD
             className={`flex items-center justify-between px-3 py-2 cursor-pointer ${
               isLoading ? "opacity-50 cursor-pointer pointer-events-none" : ""
             }`}
+=======
+            className="flex items-center justify-between px-3 py-2 cursor-pointer"
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
             onClick={logoutHandler}
           >
             Logout

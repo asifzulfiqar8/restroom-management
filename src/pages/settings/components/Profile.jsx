@@ -17,6 +17,7 @@ const genderOptions = [
 ];
 
 const Profile = () => {
+<<<<<<< HEAD
   const addImageRef = useRef();
   const dispatch = useDispatch();
   const { data, error, refetch } = useGetMyProfileQuery();
@@ -88,6 +89,28 @@ const Profile = () => {
       });
     }
   }, [user]);
+=======
+  const [open, setOpen] = useState(false);
+
+  // Static user profile data
+  const [userProfile, setUserProfile] = useState({
+    profileImage,
+    fullName: "John Doe",
+    email: "johndoe@example.com",
+    phoneNumber: "1234567890",
+    dob: "1990-01-01",
+    nationality: "American",
+    gender: "Male",
+  });
+
+  const handleEdit = (updatedProfile) => {
+    setUserProfile(updatedProfile);
+    setOpen(false);
+  };
+
+  const { fullName, email, phoneNumber, dob, nationality, gender } =
+    userProfile;
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
 
   return (
     <>
@@ -103,12 +126,15 @@ const Profile = () => {
             src={userProfile?.profileImage}
             alt="DP"
             className="cursor-pointer w-24 h-24 object-cover rounded-full"
+<<<<<<< HEAD
           />
           <input
             ref={isNotEditAble ? null : addImageRef}
             type="file"
             className="hidden"
             onChange={onFileChangeHandler}
+=======
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
           />
           <div className="text-center lg:text-left">
             <h3 className="text-lg font-semibold">{userProfile?.fullName}</h3>
@@ -149,6 +175,7 @@ const Profile = () => {
             value={userProfile?.phoneNumber}
             onChange={(e) => setUserProfile({ ...userProfile, phoneNumber: e.target.value })}
           />
+<<<<<<< HEAD
           <Input
             type="date"
             disabled={isNotEditAble}
@@ -157,6 +184,9 @@ const Profile = () => {
             value={userProfile?.dob}
             onChange={(e) => setUserProfile({ ...userProfile, dob: e.target.value })}
           />
+=======
+          <Input type="text" placeholder="Date of Birth" value={dob} readOnly />
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
         </div>
       </div>
 
@@ -188,6 +218,7 @@ const Profile = () => {
       </div>
 
       <div className="flex justify-center lg:justify-end w-full mt-5">
+<<<<<<< HEAD
         {isNotEditAble ? (
           <Button onClick={() => setIsNotEdit(false)} text="Edit" width="md:w-[120px] w-full" />
         ) : (
@@ -197,7 +228,111 @@ const Profile = () => {
           </div>
         )}
       </div>
+=======
+        <Button
+          text="edit"
+          width="md:w-[120px] w-full"
+          onClick={() => setOpen(true)}
+        />
+      </div>
+
+      {open && (
+        <Modal
+          onClose={() => setOpen(false)}
+          title="Edit Profile"
+          width="w-[320px] md:w-[450px]"
+        >
+          <EditModal userProfile={userProfile} onEdit={handleEdit} />
+        </Modal>
+      )}
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
     </>
   );
 };
 export default Profile;
+<<<<<<< HEAD
+=======
+
+const EditModal = ({ userProfile, onEdit }) => {
+  const [profilePic, setProfilePic] = useState(userProfile.profileImage);
+  const [file, setFile] = useState(null);
+  const [formState, setFormState] = useState(userProfile);
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const previewUrl = URL.createObjectURL(selectedFile);
+      setProfilePic(previewUrl);
+      setFile(selectedFile);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({ ...formState, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onEdit({ ...formState, profileImage: profilePic });
+  };
+
+  const { fullName, phoneNumber, dob, nationality, gender } = formState;
+
+  return (
+    <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
+      <div className="mx-auto">
+        <img
+          src={profilePic}
+          alt="Profile"
+          className="cursor-pointer w-24 h-24 object-cover rounded-full"
+          onClick={() => document.getElementById("fileInput").click()}
+        />
+        <input
+          type="file"
+          id="fileInput"
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+          accept="image/*"
+        />
+      </div>
+      <Input
+        type="text"
+        placeholder="Enter full name"
+        name="fullName"
+        value={fullName}
+        onChange={handleChange}
+      />
+      <Input
+        type="number"
+        placeholder="Enter phone number"
+        name="phoneNumber"
+        value={phoneNumber}
+        onChange={handleChange}
+      />
+      <Input type="date" name="dob" value={dob} onChange={handleChange} />
+      <div className="grid grid-cols-1 gap-4 w-full">
+        <Dropdown
+          name="gender"
+          value={gender}
+          options={[
+            { option: "Male", value: "Male" },
+            { option: "Female", value: "Female" },
+          ]}
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          placeholder="Nationality"
+          name="nationality"
+          value={nationality}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mt-4">
+        <Button text="update" width="w-full" />
+      </div>
+    </form>
+  );
+};
+>>>>>>> bce25d01a1c5d68350df24a9f245162a7a1d0eca
