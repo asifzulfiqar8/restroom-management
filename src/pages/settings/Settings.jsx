@@ -1,14 +1,6 @@
-import { useState } from "react";
 import Profile from "./components/Profile";
-import Aside from "./components/Aside";
 
 const Settings = () => {
-  const [activeButton, setActiveButton] = useState("profile");
-
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
-  };
-
   return (
     <div className="parentContainer">
       <div className="piechart p-5">

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../../../assets/images/auth/logo.svg";
 // import { ChevronIcon, Hambarger } from "../../../assets/svgs";
-import { pages } from "./pages";
 import { Link, useLocation } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaChevronDown } from "react-icons/fa";
+import { pages } from "./pages";
 
 const Aside = () => {
   const [aside, setAside] = useState(false);

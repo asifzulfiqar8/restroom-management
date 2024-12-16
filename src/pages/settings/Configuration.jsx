@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "../../components/shared/button/Button";
 import Modal from "../../components/modals/Modal";
 import Dropdown from "../../components/shared/dropdown/Dropdown";
@@ -6,7 +6,7 @@ import Input from "../../components/shared/input/Input";
 
 const Configuration = () => {
   const [modal, setModal] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Remote Cloud Database");
+  const [selectedOption, setSelectedOption] = useState("Local Database");
   const [pendingOption, setPendingOption] = useState("");
   const [formValues, setFormValues] = useState({
     timeInterval: "",
@@ -70,9 +70,7 @@ const Configuration = () => {
 
   return (
     <div className="bg-white rounded-[15px] p-4 lg:p-6 mt-4">
-      <h3 className="text-lg md:text-xl font-semibold mb-4">
-        Pull Request Intervals
-      </h3>
+      <h3 className="text-lg md:text-xl font-semibold mb-4">Pull Request Intervals</h3>
       <form onSubmit={handleSubmit}>
         <div className="pl-0 md:pl-8 mt-4 md:mt-6">
           <Dropdown
@@ -86,50 +84,35 @@ const Configuration = () => {
             onSelect={timeIntervalHandler}
           />
 
-          <h3 className="text-sm md:text-base font-medium mb-2 mt-4 md:mt-6">
-            Database Type
-          </h3>
+          <h3 className="text-sm md:text-base font-medium mb-2 mt-4 md:mt-6">Database Type</h3>
           <div className="flex items-center gap-4">
-            <label className="flex items-center gap-1 text-sm">
-              <input
-                type="radio"
-                name="database"
-                value="Remote Cloud Database"
-                onChange={handleRadioChange}
-                checked={selectedOption === "Remote Cloud Database"}
-              />
-              Remote Cloud Database
-            </label>
             <label className="flex items-center gap-1 text-sm">
               <input
                 type="radio"
                 name="database"
                 value="Local Database"
                 onChange={handleRadioChange}
-                checked={selectedOption === "Local Database"}
+                checked={selectedOption === "Remote Cloud Database"}
               />
               Local Database
+            </label>
+            <label className="flex items-center gap-1 text-sm">
+              <input
+                type="radio"
+                name="database"
+                value="Remote Cloud Database"
+                onChange={handleRadioChange}
+                checked={selectedOption === "Local Database"}
+              />
+              Remote Cloud Database
             </label>
           </div>
           <div className="mt-4">
             {selectedOption === "Remote Cloud Database" && (
-              <div>
-                <Input type="text" placeholder="Database Name" />
-              </div>
-            )}
-            {selectedOption === "Local Database" && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <div className="lg:col-span-6">
-                  <Input
-                    type="text"
-                    placeholder="Server Address"
-                    name="serverAddress"
-                  />
-                  {errors.serverAddress && (
-                    <div className="text-red-500 text-xs mt-1">
-                      {errors.serverAddress}
-                    </div>
-                  )}
+                  <Input type="text" placeholder="Server Address" name="serverAddress" />
+                  {errors.serverAddress && <div className="text-red-500 text-xs mt-1">{errors.serverAddress}</div>}
                 </div>
                 <div className="lg:col-span-6">
                   <Input type="number" placeholder="Port Number" />
@@ -152,15 +135,8 @@ const Configuration = () => {
         </div>
       </form>
       {modal && (
-        <Modal
-          onClose={modalCloseHandler}
-          title="Database Storage Confirmation"
-          width="w-[320px] md:w-[450px]"
-        >
-          <ConfirmationModal
-            onClose={modalCloseHandler}
-            onConfirm={handleConfirmChange}
-          />
+        <Modal onClose={modalCloseHandler} title="Database Storage Confirmation" width="w-[320px] md:w-[450px]">
+          <ConfirmationModal onClose={modalCloseHandler} onConfirm={handleConfirmChange} />
         </Modal>
       )}
     </div>

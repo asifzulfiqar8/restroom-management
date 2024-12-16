@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import { Route, Routes, Navigate } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,9 +55,7 @@ const Inspections = lazy(() =>
   import("./inspection/pages/inspection/Inspections.jsx")
 );
 const Configuration = lazy(() => import("./pages/settings/Configuration.jsx"));
-const ReportsList = lazy(() =>
-  import("./pages/downloadReport/ReportsList.jsx")
-);
+// const ReportsList = lazy(() => import("./pages/downloadReport/ReportsList.jsx"));
 const Reports = lazy(() => import("./pages/downloadReport/Reports.jsx"));
 const Admin = lazy(() => import("./pages/admin/layout/index.jsx"));
 const AdminProfile = lazy(() =>
@@ -80,7 +77,7 @@ const App = () => {
   useEffect(() => {
     if (data && data?.data) dispatch(userExist(data?.data));
     if (error) dispatch(userNotExist());
-  }, [data, error, dispatch]);
+  }, [data, dispatch, error]);
 
   return isLoading ? (
     <Loader />
@@ -88,13 +85,25 @@ const App = () => {
     <Suspense fallback={<Loader />}>
       <Routes>
         {/* Public Routes */}
-        <Route path="/login" element={<ProtectedRoute user={!user} redirect="/">
-          <Signin />
-        </ProtectedRoute>} />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute user={!user} redirect="/">
+              <Signin />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
 
         {/* Main application routes */}
-        <Route path="/" element={<Home />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute user={user} redirect="/login">
+              <Home />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="building-floor" element={<BuildingFloors />} />
@@ -127,6 +136,7 @@ const App = () => {
             element={<InspectionChangePassword />}
           />
         </Route>
+
         <Route path="/admin" element={<Admin />}>
           <Route index element={<Navigate replace to="dashboard" />} />
           <Route path="dashboard" element={<AdminDashboard />} />

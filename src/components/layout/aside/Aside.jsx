@@ -10,12 +10,14 @@ const Aside = () => {
   const [aside, setAside] = useState(false);
   const [subpagesIsActive, setSubpagesIsActive] = useState("");
   const location = useLocation();
-  const url = location?.pathname;
+  const url = location.pathname;
+  const pathName = location.pathname.split("/");
+
+  console.log("pathname", pathName);
 
   const asideToggleHandler = () => {
     setAside(!aside);
   };
-
 
   useEffect(() => {
     pages.forEach((page) => {
@@ -34,17 +36,15 @@ const Aside = () => {
 
   return (
     <div
-      className={`${
-        aside
-          ? "relative"
-          : "fixed 2xl:relative rounded-lg bg-gradient-to-b from-secondary to-primary 2xl:w-auto h-screen 2xl:h-auto z-[50] 2xl:p-0"
+      className={`2xl:relative rounded-lg bg-gradient-to-b from-secondary to-primary 2xl:w-auto h-screen 2xl:h-auto 2xl:p-0 z-[1001] ${
+        aside ? "relative w-0 2xl:w-auto" : "fixed"
       }`}
       onClick={asideToggleHandler}
     >
       <aside
-        className={`bg-gradient-to-b from-secondary to-primary rounded-xl transition-all duration-300 h-full ${
+        className={`bg-gradient-to-b from-secondary to-primary rounded-xl transition-all duration-300 h-full transform 2xl:transform-none ${
           aside
-            ? "w-0 invisible opacity-0"
+            ? "translate-x-[-10rem] 2xl:w-0 2xl:invisible opacity-0"
             : "w-[230px] visible opacity-100 p-4"
         }`}
         onClick={(e) => e.stopPropagation()}

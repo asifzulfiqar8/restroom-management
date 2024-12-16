@@ -1,9 +1,5 @@
-import DashboardIcon from "../../../../assets/images/aside/BuildingIcon";
 import BuildingIcon from "../../../../assets/images/aside/DashboardIcon";
-import SensorIcon from "../../../../assets/images/aside/SensorIcon";
 import SettingIcon from "../../../../assets/images/aside/SettingIcon";
-import PlanIcon from "../../../../assets/images/aside/PlanIcon";
-import ReportIcon from "../../../../assets/images/aside/ReportIcon";
 
 export const pages = [
   {

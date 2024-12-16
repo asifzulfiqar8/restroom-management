@@ -1,5 +1,5 @@
 import DataTable from "react-data-table-component";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IoEye } from "react-icons/io5";
 import { RiEditBoxFill } from "react-icons/ri";
 import { RiDeleteBin6Fill } from "react-icons/ri";
@@ -10,7 +10,37 @@ import EditSensor from "./EditSensor";
 import { Link } from "react-router-dom";
 import DeleteConfirmation from "../../components/modals/DeleteConfirmation";
 import { toast } from "react-toastify";
-import { sensorData } from "./sensor";
+
+// Static sensor data
+const sensorData = [
+  {
+    id: 1,
+    sensorName: "Temperature Sensor",
+    ip: "192.168.1.10",
+    port: "8080",
+    type: "Temperature",
+    uniqueId: "T-12345",
+    status: "active",
+  },
+  {
+    id: 2,
+    sensorName: "Humidity Sensor",
+    ip: "192.168.1.11",
+    port: "8081",
+    type: "Humidity",
+    uniqueId: "H-54321",
+    status: "inactive",
+  },
+  {
+    id: 3,
+    sensorName: "Pressure Sensor",
+    ip: "192.168.1.12",
+    port: "8082",
+    type: "Pressure",
+    uniqueId: "P-67890",
+    status: "active",
+  },
+];
 
 const columns = (modalOpenHandler, handleStatusToggle) => [
   {
@@ -33,22 +63,13 @@ const columns = (modalOpenHandler, handleStatusToggle) => [
     name: "Unique Id",
     selector: (row) => row.uniqueId,
   },
-  // {
-  //   name: "Status",
-  //   selector: () => (
-  //     <label className="inline-flex items-center cursor-pointer">
-  //       <input type="checkbox" value="" className="sr-only peer" />
-  //       <div className="relative w-11 h-6 bg-[#7BC0F733] rounded-full dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#50D450]"></div>
-  //     </label>
-  //   ),
-  // },
   {
     name: "Status",
     selector: (row) => (
       <label className="inline-flex items-center cursor-pointer">
         <input
           type="checkbox"
-          checked={row.status === "active"} // Adjust this based on actual backend value
+          checked={row.status === "active"}
           onChange={() => handleStatusToggle(row)}
           className="sr-only peer"
         />
@@ -60,11 +81,6 @@ const columns = (modalOpenHandler, handleStatusToggle) => [
     name: "Action",
     selector: (row) => (
       <div className="flex items-center gap-3">
-        {/* <Link to="/home/view-sensor">
-          <div className="cursor-pointer">
-            <IoEye fontSize={23} />
-          </div>
-        </Link> */}
         <Link to={`/home/view-sensor`}>
           <div className="cursor-pointer">
             <IoEye fontSize={23} />
@@ -89,72 +105,35 @@ const columns = (modalOpenHandler, handleStatusToggle) => [
 ];
 
 const Sensors = () => {
-  const [modal, setModal] = useState(false);
-  const [sensors, setSensors] = useState([]);
+  const [modal, setModal] = useState(null);
+  const [sensors, setSensors] = useState(sensorData); // Use static data
   const [selectedSensor, setSelectedSensor] = useState(null);
 
-  const fetchSensors = async () => {
-    try {
-      const response = await getAllSensors();
-      setSensors(response.sensors);
-      console.log("Sensors", response.sensors);
-    } catch (error) {
-      const errorMsg =
-        error.message || "An error occurred while fetching sensors.";
-      toast.error(errorMsg);
-    }
-  };
-
-  useEffect(() => {
-    fetchSensors();
-  }, []);
-
-  const handleStatusToggle = async (sensor) => {
-    const updatedStatus = sensor.status === "active" ? "inactive" : "active";
-
-    try {
-      const { _id, userId, createdAt, updatedAt, __v, ...updatedSensorData } = {
-        ...sensor,
-        status: updatedStatus,
-      };
-
-      console.log("Updating sensor status:", updatedSensorData);
-
-      const res = await updateSensor(_id, updatedSensorData);
-
-      console.log("API response:", res);
-      toast.success(res.message || "Sensor status updated");
-
-      fetchSensors();
-    } catch (error) {
-      console.error("Error updating sensor status:", error);
-      toast.error(error.message || "Error updating sensor status");
-    }
+  const handleStatusToggle = (sensor) => {
+    const updatedSensors = sensors.map((s) =>
+      s.id === sensor.id
+        ? { ...s, status: s.status === "active" ? "inactive" : "active" }
+        : s
+    );
+    setSensors(updatedSensors);
+    toast.success("Sensor status updated");
   };
 
   const modalOpenHandler = (type, sensor) => {
-    console.log("sensor data", sensor);
-
     setModal(type);
-    setSelectedSensor(sensor); // Set the selected sensor for deletion
+    setSelectedSensor(sensor);
   };
-
-  //  const modalOpenHandler = (type, sensorData) => {
-  //   console.log("Selected Sensor ID:", sensorData?._id); // Log the sensor ID
-  //   console.log("Selected Sensor Data:", sensorData); // Log the entire sensor data
-  //   // Open modal logic here
-  // };
 
   const modalCloseHandler = () => {
     setModal(null);
-    setSelectedSensor(null); // Clear the selected sensor
+    setSelectedSensor(null);
   };
 
   return (
     <div className="parentContainer animate-slide-up">
       <div className="piechart p-4 rounded-[15px] lg:p-6 h-[calc(100vh-80px)] overflow-hidden">
         <div className="flex items-center justify-between">
-          <div>{/* <Title title="Sensors" /> */}</div>
+          <div></div>
           <div className="flex items-center gap-2">
             <div
               className="cursor-pointer"
@@ -167,7 +146,7 @@ const Sensors = () => {
         <div className="mt-5">
           <DataTable
             columns={columns(modalOpenHandler, handleStatusToggle)}
-            data={sensorData}
+            data={sensors}
             selectableRows
             selectableRowsHighlight
             customStyles={tableStyles}
@@ -178,7 +157,10 @@ const Sensors = () => {
         </div>
         {modal === "add" && (
           <Modal title="Add Sensor" onClose={modalCloseHandler}>
-            <AddSensor onClose={modalCloseHandler} onAdd={fetchSensors} />
+            <AddSensor
+              onClose={modalCloseHandler}
+              onAdd={(newSensor) => setSensors([...sensors, newSensor])}
+            />
           </Modal>
         )}
         {modal === "edit" && (
@@ -186,18 +168,26 @@ const Sensors = () => {
             <EditSensor
               selectedSensor={selectedSensor}
               onClose={modalCloseHandler}
-              refetch={fetchSensors}
+              onEdit={(updatedSensor) =>
+                setSensors(
+                  sensors.map((s) =>
+                    s.id === updatedSensor.id ? updatedSensor : s
+                  )
+                )
+              }
             />
           </Modal>
         )}
-
         {modal === "delete" && (
           <Modal title="Confirmation!" onClose={modalCloseHandler}>
             <DeleteConfirmation
               selectedSensor={selectedSensor}
               onClose={modalCloseHandler}
               message="Are you sure you want to delete this sensor?"
-              refetch={fetchSensors} // Ensure you pass the refetch function to refresh the list
+              onDelete={() => {
+                setSensors(sensors.filter((s) => s.id !== selectedSensor.id));
+                modalCloseHandler();
+              }}
             />
           </Modal>
         )}

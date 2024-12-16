@@ -1,3 +1,5 @@
+// ==============INSPECTION HEADER
+
 import { FaChevronDown, FaRegBell } from "react-icons/fa";
 import profilePic from "../../../assets/images/header/profilePic.png";
 import { GoDotFill } from "react-icons/go";
@@ -50,6 +52,7 @@ const Header = () => {
             src={profilePic}
             alt="profile-pic"
             className="w-[40px] h-[40px] rounded-sm object-cover hidden md:inline-block"
+            onClick={toggleDropDown}
           />
           <div className="flex flex-col items-center">
             {/* <p className="flex items-center gap-2 text-base text-[white] text-[16px] leading-[20.36px] font-[500]">

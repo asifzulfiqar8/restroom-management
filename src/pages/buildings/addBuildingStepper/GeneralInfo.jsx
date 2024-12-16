@@ -15,15 +15,15 @@ const GeneralInfo = ({ setCurrentStep }) => {
           <UploadModel />
         </div>
         <Input type="text" label="Building Name" placeholder="Building Name" />
-        <Input type="text" label="Building Name" placeholder="Building Name" />
+        <Input type="text" label="Building Type" placeholder="Building Type" />
         <Input type="text" label="Location" placeholder="Warehouse 01, UK" />
         <Input type="text" label="Area" placeholder="Sq Ft" />
-        <Input type="text" label="Total Floors" placeholder="45" />
+        <Input type="number" label="Total Floors" placeholder="45" />
         <Input type="text" label="Total Restrooms" placeholder="3" />
         <div className="lg:col-span-2">
           <Input type="text" label="Building Manager" placeholder="MKS" />
         </div>
-        <Input type="text" label="Contact" placeholder="(123) 456-8034" />
+        <Input type="tel" label="Phone Number" placeholder="(123) 456-8034" />
         <div className="lg:col-span-3 flex justify-end">
           <Button text="Next" onClick={nextBtnHandler} />
         </div>
